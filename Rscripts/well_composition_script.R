@@ -23,11 +23,11 @@ library(scales)
 ################### stacked bar charts of well composition   ###########################
 ########################################################################################
 
-### read in the data
+### read in the data - this is the read count output from metaBEAT, I have manually removed the .biom header line and the taxonomy column as this make live a lot easier in R
 my.reads<-read.csv(file=paste("DATA/metaBEAT.tsv",sep=""), sep="\t", stringsAsFactors=FALSE, header=TRUE)
 
-### read in the sample by plate data
-my.plates<-read.csv(file="DATA/Samples_and_MIDS_corrected.txt",
+### read in the sample by plate data - this is the querymap file used in metaBEAT with additional columns for PCR plate
+my.plates<-read.csv(file="DATA/sample_metadata.txt",
                     sep="\t", stringsAsFactors=FALSE, header=TRUE)
 
 ### trim the plate data to the necessary columns
@@ -41,7 +41,7 @@ my.plates<-my.plates[,1:4]
 ### name the columns
 colnames(my.plates)<-c("sample","plate","plate.numeric","nest")
 
-### set a minimum occurance for an assignment to be trusted
+### set a minimum occurance for an assignment to be trusted - i.e. at this point you can decide that taxa in only one sample might be considered unreliable, in which case set occurance=2
 occurance=1
 
 ### subset the data frame to drop all assignments occuring fewer than the frequency specified above
@@ -59,13 +59,6 @@ my.reads.trans$plate.numeric<-my.plates$plate.numeric[match(my.reads.trans$sampl
 ### use match to add the nest data to the read data
 my.reads.trans$nest<-my.plates$nest[match(my.reads.trans$sample,my.plates$sample)]
 my.reads.trans$nest.numeric<-my.plates$nest.numeric[match(my.reads.trans$sample,my.plates$sample)]
-
-### Pull out the aissignments for further manual examination
-###my.assignments<-colnames(my.reads.trans)
-###write.csv(my.assignments, file="DATA/assignments_out.csv")
-
-### Pull in the assigned colours as a .csv
-###Taxa.col<-read.csv("DATA/assignments_in.csv", stringsAsFactors=FALSE)
 
 my.reads.trans$type<-ifelse(my.reads.trans$nest=="Negative","Negative",
                             ifelse(my.reads.trans$nest=="DNApositive","DNApositive",
@@ -103,7 +96,6 @@ my.reads.trans.drop$type <- factor(my.reads.trans.drop$type,
                                    levels=c("Sample","DNApositive","PCRpositive","Negative"))
 
 ### reorder my.reads.melt by both percentage Thau and plate
-#my.reads.melt<-my.reads.melt[order(my.reads.melt$Plate.numeric,-my.reads.melt$Percent.Thau),]
 my.reads.trans.drop<-my.reads.trans.drop[order(-my.reads.trans.drop$Percent.Thau,my.reads.trans.drop$Carcelia_iliaca,my.reads.trans.drop$type),]
 
 my.reads.trans.drop <- my.reads.trans.drop[order(my.reads.trans.drop$type, -xtfrm(my.reads.trans.drop$Percent.Thau), my.reads.trans.drop$Carcelia_iliaca), ]
@@ -127,28 +119,22 @@ levels(my.reads.melt$Species)
 my.reads.melt$Species <- factor(my.reads.melt$Species,
                           levels=c("Thaumetopoea_processionea",
                                    "Carcelia_iliaca",
-                                   "Astatotilapia_calliptera",
-                                   "Comaster_audax",
-                                   "Triops_cancriformis",
+                                   "Positive reads",
                                    "unassigned"))
 
 ### order the species for plotting the legend
 my.colours <- c("#FFFF33",
                     "#377EB8",
                     "#E41A1C",
-                    "#E41A1C",
-                    "#E41A1C",
-                    "#000000")                            
+                    "#000000")
 
 ### order the samples from highest OPM % to lowest and in increasing plate number
 my.reads.melt$Sample <- reorder(my.reads.melt$Sample, my.reads.melt$level.order)
-### order the plates from lowest to highest
-#my.reads.melt$Plate <- reorder(my.reads.melt$Plate, my.reads.melt$Plate.numeric)
 
-### create a nice colour scale using colourRampPalette and RColorBrewer - eventually
+### create a nice colour scale using colourRampPalette and RColorBrewer
 vivid.colours2<-brewer.pal(length(unique(my.reads.melt$Species)),"Set1")
 
-### count the columns greater than zero and write to a new data frame
+### count the columns greater than zero and write to a new data frame - this is used for the barplot below the composition diagram
 hit.hist<-data.frame(OTUs = rowSums(my.reads.trans.samps.only[c(7:12)] != 0), Type=my.reads.trans.samps.only$type)
 
 ########################################################################################
@@ -159,7 +145,7 @@ svg(file="Diagrams/well_composition_reads_by_plate.svg", width=10, height=8)
 well.composition<-ggplot(data=my.reads.melt, aes(x=Sample, y=Reads, fill=Species)) +
   ### make it a stacked barplot and set the bars to be the same height
   geom_bar(position="fill", stat="identity") +
-  ### wrap the plot by plate  
+  ### wrap the plot by plate
   facet_wrap(~Panel, scales="free_x", nrow=3, ncol=1) +
   ### give it a percentage scale
   scale_y_continuous(labels = percent_format()) +
@@ -168,9 +154,7 @@ well.composition<-ggplot(data=my.reads.melt, aes(x=Sample, y=Reads, fill=Species
   #                    values = jet.colors3(length(unique(my.reads.melt$Species)))) +
   scale_fill_manual(name="Species", labels=c("Thaumetopoea processionea",
                                              "Carcelia iliaca",
-                                             "Astatotilapia calliptera",
-                                             "Comaster audax",
-                                             "Triops cancriformis",
+                                             "Positive reads",
                                              "unassigned"),
                     values = my.colours) +
   ### add a sensible y axis label
@@ -188,7 +172,7 @@ well.composition<-ggplot(data=my.reads.melt, aes(x=Sample, y=Reads, fill=Species
         legend.position = "bottom",
         legend.background = element_blank(),
         panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
+        panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.line = element_blank(),
         panel.border = element_rect(colour = "black", fill=NA, size=0.1),
