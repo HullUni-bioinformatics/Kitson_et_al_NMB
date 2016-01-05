@@ -22,12 +22,12 @@ library(scales)
 ################### box plots of read depth   ###########################
 ########################################################################################
 
-### read in the data
+### read in the data - this is the read count output from metaBEAT, I have manually removed the .biom header line and the taxonomy column as this make live a lot easier in R
 my.reads<-read.csv(file="DATA/reads_stats.csv", stringsAsFactors=FALSE, header=TRUE)
 #colnames(my.reads)
 
-### read in the sample by plate data
-my.plates<-read.csv(file="DATA/Samples_and_MIDS_corrected.txt",
+### read in the sample by plate data - this is the querymap file used in metaBEAT with additional columns for PCR plate
+my.plates<-read.csv(file="DATA/sample_metadata.txt",
                     sep="\t", stringsAsFactors=FALSE, header=TRUE)
 
 ### trim the plate data to the necessary columns
@@ -90,7 +90,7 @@ ggplot(aes(y = value, x = plate, fill = variable), data = my.reads.subs.melt) +
         legend.key=element_blank(),
         legend.background = element_blank(),
         panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
+        panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.line = element_blank(),
         panel.border = element_rect(colour = "black", fill=NA, size=1),
@@ -126,7 +126,7 @@ ggplot(aes(y = value, x = plate, fill = variable), data = subset(my.reads.subs.m
         legend.key=element_blank(),
         legend.background = element_blank(),
         panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
+        panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.line = element_blank(),
         panel.border = element_rect(colour = "black", fill=NA, size=1),
@@ -168,7 +168,7 @@ ggplot(aes(y = value, x = type, fill = variable), data = my.reads.subs.melt) +
         legend.key=element_blank(),
         legend.background = element_blank(),
         panel.background = element_blank(),
-        panel.grid.major = element_blank(), 
+        panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         axis.line = element_blank(),
         panel.border = element_rect(colour = "black", fill=NA, size=1),
