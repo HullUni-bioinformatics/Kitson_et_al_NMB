@@ -1,5 +1,5 @@
 # Kitson_et_al_NMB
-Repository contains scripts and supplementary data for Kitson et al. - Nested metabarcoding manuscript
+Repository contains scripts and supplementary data for [Kitson et al. - Nested metabarcoding manuscript](http://biorxiv.org/content/early/2015/12/23/035071)
 
 In order to make our analyses fully reproducable we provide:
 - Jupyter [notebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/notebooks)
