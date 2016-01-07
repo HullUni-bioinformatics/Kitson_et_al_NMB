@@ -23,11 +23,11 @@ library(scales)
 ########################################################################################
 
 ### read in the data - this is the read count output from metaBEAT, I have manually removed the .biom header line and the taxonomy column as this make live a lot easier in R
-my.reads<-read.csv(file="DATA/reads_stats.csv", stringsAsFactors=FALSE, header=TRUE)
+my.reads<-read.csv(file="data/reads_stats.csv", stringsAsFactors=FALSE, header=TRUE)
 #colnames(my.reads)
 
 ### read in the sample by plate data - this is the querymap file used in metaBEAT with additional columns for PCR plate
-my.plates<-read.csv(file="DATA/sample_metadata.txt",
+my.plates<-read.csv(file="data/sample_metadata.txt",
                     sep="\t", stringsAsFactors=FALSE, header=TRUE)
 
 ### trim the plate data to the necessary columns
