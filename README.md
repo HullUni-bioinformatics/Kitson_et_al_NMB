@@ -1,6 +1,6 @@
 # Kitson_et_al_NMB
 
-__This code repository is archived: [![DOI](https://zenodo.org/badge/19905/HullUni-bioinformatics/Kitson_et_al_NMB.svg)](https://zenodo.org/badge/latestdoi/19905/HullUni-bioinformatics/Kitson_et_al_NMB)__
+__This code repository is archived: __ 
 
 Repository contains scripts and supplementary data for [Kitson et al. - Nested metabarcoding manuscript](http://biorxiv.org/content/early/2015/12/23/035071)
 
