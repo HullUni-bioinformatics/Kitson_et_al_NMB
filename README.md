@@ -1,6 +1,6 @@
 # Kitson_et_al_NMB
 
-__This code repository is archived: __ 
+This code repository is archived:
 
 Repository contains scripts and supplementary data for [Kitson et al. - Nested metabarcoding manuscript](http://biorxiv.org/content/early/2015/12/23/035071)
 
