@@ -32,7 +32,7 @@ my.clust.subs<-subset(my.clust, my.clust$type=="Moth sample",
 ### http://stackoverflow.com/questions/19339296/plotting-contours-on-an-irregular-grid
 ########################################################################################
 
-# interpolate data into a regulae grid of values for plotting - currently cluster numbers are logged to spread the colour ramp
+# interpolate data into a regular grid of values for plotting
 fld <- with(my.clust.subs, interp(x = cluster_thres , y = clusters_min_cov, z = cluster_above_thres, duplicate="mean",
                                   xo=seq(min(cluster_thres), max(cluster_thres), length = 100),
                                   yo=seq(min(clusters_min_cov), max(clusters_min_cov), length = 100)))
