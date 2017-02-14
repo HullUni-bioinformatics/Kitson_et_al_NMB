@@ -1,14 +1,35 @@
 ---
-title: "R Notebook"
+title: "Summary plotting of metaBEAT output"
 output: html_notebook
 ---
 
-This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Kitson *et al.* (2017)
+#This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Kitson *et al.* (2017)
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+##Plotting read depth by sample type
+First of all read in the libraries that we need
+```{r}
+library(reshape2)
+library(ggplot2)
+```
 
 ```{r}
-plot(cars)
+### read in the data - this is the read count output from metaBEAT, I have manually removed the .biom header line and the taxonomy column as this make live a lot easier in R
+my.reads<-read.csv(file="data2/minalilength__read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
+#colnames(my.reads)
+
+### read in the sample by plate data - this is the querymap file used in metaBEAT with additional columns for PCR plate
+my.plates<-read.csv(file="data2/sample_metadata.csv", stringsAsFactors=FALSE, header=TRUE)
+
+### trim the plate data to the necessary columns
+my.plates<-my.plates[,1:3]
+
+### greedy regex to split the sample string by the underscore and leave us with a column for nest and a column for indentifier
+my.plates<-cbind(my.plates, do.call(rbind, strsplit(as.character(my.plates$sample), "_|_.*_")))
+
+### trim the plate data to the necessary columns (i.e. drop the identifier column)
+my.plates<-my.plates[,1:4]
+### name the columns
+colnames(my.plates)<-c("sample","plate","plate.numeric","nest")
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
