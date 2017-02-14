@@ -5,20 +5,20 @@ output: html_notebook
 
 #This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Kitson *et al.* (2017)
 
-##Plotting read depth by sample type
-First of all read in the libraries that we need
+##Data processing
+###First of all read in the libraries that we need.
 ```{r}
 library(reshape2)
 library(ggplot2)
 ```
 
+###Next read in the data and metadata, we'll also trim the metadata to the bits we need.
 ```{r}
 ### read in the data - this is the read count output from metaBEAT, I have manually removed the .biom header line and the taxonomy column as this make live a lot easier in R
-my.reads<-read.csv(file="data2/minalilength__read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
-#colnames(my.reads)
+my.reads<-read.csv(file="../data2/minalilength__read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
 
 ### read in the sample by plate data - this is the querymap file used in metaBEAT with additional columns for PCR plate
-my.plates<-read.csv(file="data2/sample_metadata.csv", stringsAsFactors=FALSE, header=TRUE)
+my.plates<-read.csv(file="../data2/sample_metadata.csv", stringsAsFactors=FALSE, header=TRUE)
 
 ### trim the plate data to the necessary columns
 my.plates<-my.plates[,1:3]
@@ -32,6 +32,21 @@ my.plates<-my.plates[,1:4]
 colnames(my.plates)<-c("sample","plate","plate.numeric","nest")
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+###Merge the dataframes together using match and annotate the samples.
+```{r}
+### use match to add the plate data to the read data
+my.reads$plate<-my.plates$plate[match(my.reads$sample,my.plates$sample)]
+my.reads$plate.numeric<-my.plates$plate.numeric[match(my.reads$sample,my.plates$sample)]
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+### set the plotting order of the plates
+my.reads$plate<-factor(reorder(my.reads$plate, my.reads$plate.numeric))
+
+### make sample and plate factors for faceting and ordering
+my.reads$sample<-as.factor(my.reads$sample)
+my.reads$plate<-as.factor(my.reads$plate)
+
+### set a grouping variable for the data type
+my.reads$type<-ifelse(grepl("DNA",my.reads$sample),"DNApositive",
+                      ifelse(grepl("PCR",my.reads$sample),"PCRpositive",
+                             ifelse(grepl("Negative",my.reads$sample),"negative","Moth sample")))
+```
