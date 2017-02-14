@@ -23,12 +23,11 @@ library(scales)
 ########################################################################################
 
 ### read in the data - this is the read count output from metaBEAT, I have manually removed the .biom header line and the taxonomy column as this make live a lot easier in R
-my.reads<-read.csv(file="data/reads_stats.csv", stringsAsFactors=FALSE, header=TRUE)
+my.reads<-read.csv(file="data2/minalilength__read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
 #colnames(my.reads)
 
 ### read in the sample by plate data - this is the querymap file used in metaBEAT with additional columns for PCR plate
-my.plates<-read.csv(file="data/sample_metadata.txt",
-                    sep="\t", stringsAsFactors=FALSE, header=TRUE)
+my.plates<-read.csv(file="data2/sample_metadata.csv", stringsAsFactors=FALSE, header=TRUE)
 
 ### trim the plate data to the necessary columns
 my.plates<-my.plates[,1:3]
@@ -58,7 +57,7 @@ my.reads$type<-ifelse(grepl("DNA",my.reads$sample),"DNApositive",
                              ifelse(grepl("Negative",my.reads$sample),"negative","Moth sample")))
 
 ### subset the data to only keep the numbers of reads at each stage
-my.reads.subs<-subset(my.reads, select=c("sample","total","trimmed.total","plate","type"))
+my.reads.subs<-subset(my.reads, select=c("sample","total","trimmed.total","queries","plate","type"))
 
 ### melt the data into long format
 my.reads.subs.melt<-melt(my.reads.subs, id.vars=c("sample","type", "plate"))
@@ -97,7 +96,7 @@ ggplot(aes(y = value, x = plate, fill = variable), data = my.reads.subs.melt) +
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
 ### save the graph to an svg plot
-ggsave(filename="Diagrams/filtered_trimming_summary_all_samples.svg")
+ggsave(filename="Diagrams/filtered_trimming_summary_all_samples2.svg")
 
 ########################################################################################
 ################### Plot the data excluding the +ves and -ves  ###########################
@@ -154,8 +153,10 @@ ggplot(aes(y = value, x = type, fill = variable), data = my.reads.subs.melt) +
   ### fix the axes titles
   labs(y = "Reads per PCR well", x="PCR plate") +
   scale_fill_discrete(name="Trim level",
-                      breaks=c("total", "trimmed.total"),
-                      labels=c("Raw reads", "Trimmed reads")) +
+                      breaks=c("total", "trimmed.total", "queries"),
+                      labels=c("Raw reads", "Trimmed reads", "Reads in clusters")) +
+  scale_x_discrete(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
   ### rotate the x-axis labels and resize the text for the svg
   theme(axis.text.x = element_text(size = rel(2.5), colour="black"),
         axis.text.y = element_text(size = rel(2.5), colour="black"),
