@@ -96,7 +96,7 @@ ggplot(aes(y = value, x = plate, fill = variable), data = my.reads.subs.melt) +
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
 ### save the graph to an svg plot
-ggsave(filename="Diagrams/filtered_trimming_summary_all_samples2.svg")
+ggsave(filename="diagrams/filtered_trimming_summary_all_samples2.svg")
 
 ########################################################################################
 ################### Plot the data excluding the +ves and -ves  ###########################
