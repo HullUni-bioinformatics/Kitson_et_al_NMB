@@ -46,7 +46,7 @@ read.stats$type<-ifelse(read.stats$template=="neg1","Negative",
 ### make the type column a factor
 read.stats$type<-as.factor(read.stats$type)
 ### drop the columns, we don't need
-#read.stats<-read.stats[,c(1:(ncol(read.stats)-3),ncol(read.stats))]
+read.stats<-read.stats[,c(1:(ncol(read.stats)-3),ncol(read.stats))]
 
 neg.clusters<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
