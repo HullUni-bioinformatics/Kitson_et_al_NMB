@@ -26,7 +26,7 @@ clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster
 
 reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
-#  geom_point(aes(x=as.factor(clusters_min_cov), y=mean(queries)), color='blue')
+  geom_point(aes(x=as.factor(clusters_min_cov), y=mean(queries)), color='blue')
   labs(y = "Per well read depth", x="Minimum cluster coverage")
 
 grid.arrange(clusters, reads, ncol=1)
