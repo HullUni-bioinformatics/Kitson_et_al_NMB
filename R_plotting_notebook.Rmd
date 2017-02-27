@@ -20,15 +20,22 @@ Lets see how the number of clusters retained and read depth per well changes wit
 read.stats<-read.csv(file="data2/combined_read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
 #read.stats<-subset(read.stats, clusters_min_cov>40)
 
+### create a plot of number clusters in PCR wells by minimum cluster size
 clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
   labs(y = "Clusters retained", x="Minimum cluster coverage")
-
+### create a plot of read depth in PCR wells by minimum cluster size
 reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
   geom_point(aes(x=as.factor(clusters_min_cov), y=mean(queries)), color='blue')
   labs(y = "Per well read depth", x="Minimum cluster coverage")
 
+  ### combine the plots and write them to an svg file
+svg(file="diagrams/coverage.svg")
+grid.arrange(clusters, reads, ncol=1)
+dev.off()
+
+### replot the abole plot here for convenience
 grid.arrange(clusters, reads, ncol=1)
 ```
 
@@ -48,14 +55,21 @@ read.stats$type<-as.factor(read.stats$type)
 ### drop the columns, we don't need
 #read.stats<-read.stats[,c(1:(ncol(read.stats)-3),ncol(read.stats))]
 
+### create a plot of number clusters in negative wells by minimum cluster size
 neg.clusters<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
   labs(y = "Clusters retained", x="Minimum cluster coverage")
-
+### create a plot of read depth in negative wells by minimum cluster size
 neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
   labs(y = "Per well read depth", x="Minimum cluster coverage")
 
+### combine the plots and write them to an svg file
+svg(file="diagrams/negatives_coverage.svg")
+grid.arrange(neg.clusters, neg.reads, ncol=1)
+dev.off()
+
+### replot the abole plot here for convenience
 grid.arrange(neg.clusters, neg.reads, ncol=1)
 ```
 
