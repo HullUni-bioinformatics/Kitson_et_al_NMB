@@ -19,7 +19,7 @@ Lets see how the number of clusters retained and read depth per well changes wit
 ```{r}
 read.stats<-read.csv(file="data2/combined_read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
 #read.stats<-subset(read.stats, clusters_min_cov>40)
-ss
+
 clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
   labs(y = "Clusters retained", x="Minimum cluster coverage")
