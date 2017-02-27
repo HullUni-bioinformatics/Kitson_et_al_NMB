@@ -6,6 +6,16 @@ output: html_notebook
 
 #This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Kitson *et al.* (2017)
 
+#Part 1: Minimum cluster depth analysis
+```{r}
+read.stats<-read.csv(file="data2/combined_read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
+read.stats<-subset(read.stats, clusters_min_cov<41)
+
+ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
+  geom_boxplot()
+```
+
+
 ##Data processing
 ###First of all read in the libraries that we need.
 ```{r}
@@ -13,10 +23,12 @@ library(reshape2)
 library(ggplot2)
 ```
 
+
+
 ###Next read in the data and metadata, we'll also trim the metadata to the bits we need.
 ```{r}
 ### read in the data - this is the read count output from metaBEAT, I have manually removed the .biom header line and the taxonomy column as this make live a lot easier in R
-my.reads<-read.csv(file="data2/minalilength__read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
+my.reads<-read.table(file="data2/metaBEAT-processed.tsv", stringsAsFactors=FALSE, header=TRUE,sep="\t")
 
 ### read in the sample by plate data - this is the querymap file used in metaBEAT with additional columns for PCR plate
 my.plates<-read.csv(file="data2/sample_metadata.csv", stringsAsFactors=FALSE, header=TRUE)
