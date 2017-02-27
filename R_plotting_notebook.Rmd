@@ -6,29 +6,66 @@ output: html_notebook
 
 #This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Kitson *et al.* (2017)
 
-#Part 1: Minimum cluster depth analysis
-```{r}
-read.stats<-read.csv(file="data2/combined_read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
-read.stats<-subset(read.stats, clusters_min_cov<41)
-
-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
-  geom_boxplot()
-```
-
-
-##Data processing
 ###First of all read in the libraries that we need.
 ```{r}
 library(reshape2)
 library(ggplot2)
+library(gridExtra)
+```
+
+#Part 1: Minimum cluster depth analysis
+Lets see how the number of clusters retained and read depth per well changes with different minimum cluster sizes.
+
+```{r}
+read.stats<-read.csv(file="data2/combined_read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
+#read.stats<-subset(read.stats, clusters_min_cov>40)
+
+clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
+  geom_boxplot() +
+  labs(y = "Clusters retained", x="Minimum cluster coverage")
+
+reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) +
+  geom_boxplot() +
+#  geom_point(aes(x=as.factor(clusters_min_cov), y=mean(queries)), color='blue')
+  labs(y = "Per well read depth", x="Minimum cluster coverage")
+
+grid.arrange(clusters, reads, ncol=1)
+```
+
+```{r}
+### greedy regex to split the sample string by the underscore and leave us with a column for nest and a column for indentifier
+read.stats<-cbind(read.stats, do.call(rbind, strsplit(as.character(read.stats$sample), "_|_.*_")))
+
+### rename the last column as type
+colnames(read.stats)[ncol(read.stats)]<-'template'
+### process the last column into a sample type factor using a horrible ifelse statement
+read.stats$type<-ifelse(read.stats$template=="neg1","Negative",
+                          ifelse(read.stats$template=="neg2","Negative",
+                            ifelse(read.stats$template=="DNApositive","DNApositive",
+                              ifelse(read.stats$template=="PCRpositive","PCRpositive","Sample"))))
+### make the type column a factor
+read.stats$type<-as.factor(read.stats$type)
+### drop the columns, we don't need
+#read.stats<-read.stats[,c(1:(ncol(read.stats)-3),ncol(read.stats))]
+
+neg.clusters<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
+  geom_boxplot() +
+  labs(y = "Clusters retained", x="Minimum cluster coverage")
+
+neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=queries)) +
+  geom_boxplot() +
+  labs(y = "Per well read depth", x="Minimum cluster coverage")
+
+grid.arrange(neg.clusters, neg.reads, ncol=1)
 ```
 
 
+##Data processing
 
 ###Next read in the data and metadata, we'll also trim the metadata to the bits we need.
 ```{r}
 ### read in the data - this is the read count output from metaBEAT, I have manually removed the .biom header line and the taxonomy column as this make live a lot easier in R
-my.reads<-read.table(file="data2/metaBEAT-processed.tsv", stringsAsFactors=FALSE, header=TRUE,sep="\t")
+#my.reads<-read.table(file="data2/metaBEAT-processed.tsv", stringsAsFactors=FALSE, header=TRUE,sep="\t")
 
 ### read in the sample by plate data - this is the querymap file used in metaBEAT with additional columns for PCR plate
 my.plates<-read.csv(file="data2/sample_metadata.csv", stringsAsFactors=FALSE, header=TRUE)
