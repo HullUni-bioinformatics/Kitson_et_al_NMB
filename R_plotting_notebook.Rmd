@@ -260,14 +260,14 @@ sample.types
 ##Well composition
 We now need to parse the assignments into a per well composition diagram and calculate percentage parasitism.
 
-#Read in the assignment data
+###Read in the assignment data
 ```{r}
 my.assignments<-read.table(file="data/metaBEAT_transpose.tsv", stringsAsFactors=FALSE, header=TRUE, sep="\t")
 ### because the data from metaBEAT has been transposed, the column header for column one is now a row header and needs to be replaced to make sense
 colnames(my.assignments)[1]<-"sample"
 ```
 
-#Data processing
+###Data processing
 we need to process this data quite a bit to get it annotated, formatted and into the correct order for plotting
 ```{r}
 ### Use match to add the plate data to the read data
@@ -310,6 +310,7 @@ colnames(my.assignments.melt)<-c("Sample","Plate","Plate.numeric","Percent.Thau"
 my.assignments.melt$Sample<-as.character(my.assignments.melt$Sample)
 ```
 
+###Create a separate dataframe to plot OTUs per well
 ```{r}
 ### Create a separate dataframe containing only samples
 my.assignments.samps.only<-subset(my.assignments, type=="Moth sample")
@@ -318,7 +319,7 @@ my.assignments.samps.only<-subset(my.assignments, type=="Moth sample")
 hit.hist<-data.frame(OTUs = rowSums(my.assignments.samps.only[c(2:11)] != 0), type=my.assignments.samps.only$type)
 ```
 
-
+###Plot the well composition and OTUs per well diagram
 ```{r}
 ### set up the ggplot
 well.composition<-ggplot(data=my.assignments.melt, aes(x=Sampleless, y=Reads, fill=Species)) +
@@ -343,8 +344,8 @@ well.composition<-ggplot(data=my.assignments.melt, aes(x=Sampleless, y=Reads, fi
   ### add a sensible y axis label
   labs(y = "% of reads per well", x="PCR wells") +
   ### rotate the x-axis labels and resize the text for the svg
-  theme(#axis.text.x = element_blank(),
-        axis.text.x = element_text(size = rel(0.3), colour = "black", angle=90),
+  theme(axis.text.x = element_blank(),
+        #axis.text.x = element_text(size = rel(0.3), colour = "black", angle=90),
         axis.ticks.x=element_blank(),
         axis.text.y = element_text(size = rel(1.1), colour="black"),
         axis.title.y = element_text(size = rel(1), vjust=2),
