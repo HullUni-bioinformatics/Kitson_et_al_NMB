@@ -1,7 +1,6 @@
 ---
 title: "Summary plotting of metaBEAT output"
 output: html_notebook
-  toc: yes
 ---
 
 #This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Kitson *et al.* (2017)
