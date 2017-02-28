@@ -14,7 +14,7 @@ library(gridExtra)
 ```
 
 #Part 1: Minimum cluster depth analysis
-First we need to see how the number of clusters retained and read depth per well changes with different minimum cluster sizes. We want to end up in a situation where we are retaining only the most common unique sequences as these are likely to be the real biological systems. We will ideally also avoid clustering with thresholds lower than 100% as this can pull in rare sequencing errors and result in a centroid that is not in fact a genuine biological sequence.
+First we need to see how the number of clusters retained and read depth per well changes with different minimum cluster sizes. We want to end up in a situation where we are retaining only the most common unique sequences as these are likely to be the real biological systems. We will ideally also avoid clustering with thresholds lower than 100% as this can pull in rare sequencing errors and result in a centroid that is not in fact a genuine biological sequence. We have already iterated across minimum cluster sizes in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) so now we will plot this data to help us choose a minimum cluster size.
 
 ```{r}
 read.stats<-read.csv(file="data2/combined_read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
@@ -265,6 +265,16 @@ sample.types
 ```
 
 ##Well composition
+We now need to parse the assignments into a per well composition diagram and calculate percentage parasitism.
 
-### read in the read statistics data - this is the read count output from metaBEAT, I have manually removed the .biom header line and the taxonomy column as this make live a lot easier in R
-###my.reads<-read.table(file="data2/metaBEAT-transpose.tsv", stringsAsFactors=FALSE, header=TRUE, sep="\t")
+#Read in the assignment data
+```{r}
+my.assignments<-read.table(file="data2/metaBEAT_transpose.tsv", stringsAsFactors=FALSE, header=TRUE, sep="\t")
+```
+
+#Data processing
+we need to process this data quite a bit to get it annotated, formatted and into the correct order for plotting
+```{r}
+
+```
+
