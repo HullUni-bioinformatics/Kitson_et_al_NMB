@@ -321,7 +321,7 @@ hit.hist<-data.frame(OTUs = rowSums(my.assignments.samps.only[c(2:11)] != 0), ty
 
 ```{r}
 ### set up the ggplot
-well.composition<-ggplot(data=my.assignments.melt, aes(x=Order, y=Reads, fill=Species)) +
+well.composition<-ggplot(data=my.assignments.melt, aes(x=Sampleless, y=Reads, fill=Species)) +
   ### make it a stacked barplot and set the bars to be the same height
   geom_bar(position="fill", stat="identity") +
   ### wrap the plot by plate
