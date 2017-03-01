@@ -273,6 +273,10 @@ colnames(my.assignments)[1]<-"sample"
 ###Data processing
 we need to process this data quite a bit to get it annotated, formatted and into the correct order for plotting
 ```{r}
+### Combine all the fungal sequences as we aren't using the correct marker to examine them properly
+my.assignments$Fungi<-rowSums(my.assignments[c("Beauveria_bassiana","Penicillium","Cordycipitaceae","Ascomycota")])
+my.assignments<-my.assignments[c(1,3:7,10,13,12)]
+
 ### Use match to add the plate data to the read data
 my.assignments$plate<-my.plates$plate[match(my.assignments$sample, my.plates$sample)]
 my.assignments$plate.numeric<-my.plates$plate.numeric[match(my.assignments$sample, my.plates$sample)]
@@ -283,7 +287,7 @@ my.assignments$sample<-as.factor(my.assignments$sample)
 my.assignments$plate<-as.factor(my.assignments$plate)
 
 ### Total all the reads
-my.assignments$total<-rowSums(my.assignments[c(2:11)])
+my.assignments$total<-rowSums(my.assignments[c(2:9)])
 ### calculate the percentage of reads in each well that are OPM
 my.assignments$percent.thau<-ifelse(my.assignments$total>0,(my.assignments$Thaumetopoea_processionea/my.assignments$total)*100,0)
 
@@ -319,13 +323,13 @@ my.assignments.melt$Sample<-as.character(my.assignments.melt$Sample)
 my.assignments.samps.only<-subset(my.assignments, type=="Moth sample")
 
 ### count the columns greater than zero and write to a new data frame - this is used for the barplot below the composition diagram
-hit.hist<-data.frame(OTUs = rowSums(my.assignments.samps.only[c(2:11)] != 0), type=my.assignments.samps.only$type)
+hit.hist<-data.frame(OTUs = rowSums(my.assignments.samps.only[c(2:9)] != 0), type=my.assignments.samps.only$type)
 ```
 
 We need to make a colour scale to make assignments clearer. For the number of assignments we have, automatic colour selection often results in colours difficult to discern.
 
 ```{r}
-my.colours<-brewer.pal(n=(length(unique(my.assignments.melt$Species))-1),'Set3')
+my.colours<-brewer.pal(n=(length(unique(my.assignments.melt$Species))-1),'Paired')
 my.colours[length(my.colours)+1]<-"#000000"
 ```
 
