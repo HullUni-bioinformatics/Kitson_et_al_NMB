@@ -34,11 +34,11 @@ reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) 
   labs(y = "Per well read depth", x="Minimum cluster coverage")
 
 ### combine the plots and write them to an svg file
-svg(file="diagrams/coverage.svg")
+svg(file="diagrams/coverage.svg",12,8)
 grid.arrange(clusters, reads, ncol=1)
 dev.off()
 
-### replot the abole plot here for convenience
+### replot the above plot here for convenience
 grid.arrange(clusters, reads, ncol=1)
 ```
 
@@ -69,11 +69,11 @@ neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(c
   labs(y = "Per well read depth", x="Minimum cluster coverage")
 
 ### combine the plots and write them to an svg file
-svg(file="diagrams/negatives_coverage.svg")
+svg(file="diagrams/negatives_coverage.svg",12,8)
 grid.arrange(neg.clusters, neg.reads, ncol=1)
 dev.off()
 
-### replot the abole plot here for convenience
+### replot the above plot here for convenience
 grid.arrange(neg.clusters, neg.reads, ncol=1)
 ```
 
@@ -160,7 +160,7 @@ all.samples<-ggplot(aes(y = value, x = plate, fill = variable), data = final.rea
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
 ### Plot above as a svg
-svg(file="diagrams/trimming_summary_all_samples.svg", 10, 10)
+svg(file="diagrams/trimming_summary_all_samples.svg",12,8)
 all.samples
 dev.off()
 
@@ -203,7 +203,7 @@ samples.only<-ggplot(aes(y = value, x = plate, fill = variable), data = subset(f
 
 
 ### Plot above as a svg
-svg(file="diagrams/trimming_summary_moths_only.svg", 10, 10)
+svg(file="diagrams/trimming_summary_moths_only.svg",12,8)
 samples.only
 dev.off()
 
@@ -252,7 +252,7 @@ sample.types<-ggplot(aes(y = value, x = type, fill = variable), data = final.rea
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
 ### Plot above as a svg
-svg(file="diagrams/trimming_summary_sample_types.svg", 10, 10)
+svg(file="diagrams/trimming_summary_sample_types.svg", 12, 8)
 sample.types
 dev.off()
 
@@ -381,7 +381,7 @@ hist<- ggplot(hit.hist, aes(factor(reorder(OTUs, -OTUs)))) +
         axis.line = element_blank(),
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
-svg(file="diagrams/well_composition.svg", width=10, height=8)
+svg(file="diagrams/well_composition.svg", width=12, height=8)
 grid.arrange(well.composition, hist, heights=c(3/4, 1/4), ncol=1)
 dev.off()
 
