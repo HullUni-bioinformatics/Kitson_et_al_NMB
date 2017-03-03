@@ -5,9 +5,15 @@ output: html_notebook
 
 #This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Kitson *et al.* (2017)
 
-###First of all clear the work space and read in the libraries that we need.
+#Part 1: Minimum cluster depth analysis
+We need to see how the number of clusters retained and read depth per well changes with different minimum cluster sizes. We want to end up in a situation where we are retaining only the most common unique sequences as these are likely to be the real biological systems. We will ideally also avoid clustering with thresholds lower than 100% as this can pull in rare sequencing errors and result in a centroid that is not in fact a genuine biological sequence. We have already iterated across minimum cluster sizes in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) so now we will use this data to help us choose a minimum cluster size.
+
+###First of all read in all the libraries we'll need to process the data
 ```{r}
+### Clear the workspace
 rm(list=ls())
+
+### Load the libraries
 library(reshape2)
 library(ggplot2)
 library(gridExtra)
@@ -15,20 +21,17 @@ library(scales)
 library(RColorBrewer)
 ```
 
-#Part 1: Minimum cluster depth analysis
-First we need to see how the number of clusters retained and read depth per well changes with different minimum cluster sizes. We want to end up in a situation where we are retaining only the most common unique sequences as these are likely to be the real biological systems. We will ideally also avoid clustering with thresholds lower than 100% as this can pull in rare sequencing errors and result in a centroid that is not in fact a genuine biological sequence. We have already iterated across minimum cluster sizes in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) so now we will plot this data to help us choose a minimum cluster size.
-### order the type for ordering the samples in the plot
-my.assignments$type <- factor(my.assignments$type,
-                                   levels=c("Moth sample","DNApositive","PCRpositive","Negative"))
-###Read in the data and look at the number of clusters and read depth against minimum cluster size
+###Plotting clusters retained and read depth against minimum cluster size - __all samples__
+The aim of these plots is to look for a region of minimum cluster sizes that result in stable values for clusters retained or per well read depth and then choose the __minimum__ stable value to maximise clusters retained. The assumption underlying this is that once we reach a stable set of parameter values we are looking at the real data *i.e.* any clusters retained in the stable region of minimum cluster size represent genuine biological sequences and not rare sequencing/PCR error.
 ```{r}
+### Read in the data and look at the number of clusters and read depth against minimum cluster size
 read.stats<-read.csv(file="data/combined_read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
 
-### create a plot of number clusters in PCR wells by minimum cluster size
+### Create a plot of number clusters in PCR wells by minimum cluster size
 clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
   labs(y = "Clusters retained", x="Minimum cluster coverage")
-### create a plot of read depth in PCR wells by minimum cluster size
+### Create a plot of read depth in PCR wells by minimum cluster size
 reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
   labs(y = "Per well read depth", x="Minimum cluster coverage")
@@ -42,7 +45,8 @@ dev.off()
 grid.arrange(clusters, reads, ncol=1)
 ```
 
-###Process the data a bit more so we can examine just the negatives as these give an indication of any possible background noise.
+###Plotting clusters retained and read depth against minimum cluster size - __just negatives__
+We should process the data a bit more so we can examine just negative controls as these give an indication of any possible background noise/contamination present in all NGS sequencing runs.
 ```{r}
 ### greedy regex to split the sample string by the underscore and leave us with a column for nest and a column for indentifier
 read.stats<-cbind(read.stats, do.call(rbind, strsplit(as.character(read.stats$sample), "_|_.*_")))
@@ -59,11 +63,11 @@ read.stats$type<-as.factor(read.stats$type)
 ### drop the columns, we don't need
 #read.stats<-read.stats[,c(1:(ncol(read.stats)-3),ncol(read.stats))]
 
-### create a plot of number clusters in negative wells by minimum cluster size
+### Create a plot of number clusters in negative wells by minimum cluster size
 neg.clusters<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
   labs(y = "Clusters retained", x="Minimum cluster coverage")
-### create a plot of read depth in negative wells by minimum cluster size
+### Create a plot of read depth in negative wells by minimum cluster size
 neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
   labs(y = "Per well read depth", x="Minimum cluster coverage")
@@ -77,7 +81,8 @@ dev.off()
 grid.arrange(neg.clusters, neg.reads, ncol=1)
 ```
 
-The read depth for a minimum cluster coverage of one seems a little weird so I'll plot the cumulative total reads for both all minimum cluster sizes and for just one and six.
+###Plotting cumulative read depth across samples
+The per well read depth for a minimum cluster coverage of one is unexpected. We would expect that more reads would be retained at a minimum cluster size of one read than a minimum cluster size of six but clearly fewer reads are being retained. To examine this further we will plot the cumulative total reads both for all minimum cluster sizes and for just one and six reads.
 
 ```{r}
 ### Create a cumulative sum variable for each level of minimum cluster coverage
@@ -108,19 +113,22 @@ cumulative.subs<-ggplot(subset(read.stats, clusters_min_cov==c("1","6")), aes(x=
   theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
 
 
-svg(file="diagrams/cumulative_read_depth.svg",12,4)
-grid.arrange(cumulative.all, cumulative.subs, ncol=2)
+svg(file="diagrams/cumulative_read_depth.svg",12,8)
+grid.arrange(cumulative.all, cumulative.subs, ncol=1)
 dev.off()
 
 ### replot the above plot here for convenience
-grid.arrange(cumulative.all, cumulative.subs, ncol=2)
+grid.arrange(cumulative.all, cumulative.subs, ncol=1)
 ```
+
+###Conclusions
+Looking at the plot for per well read depth for all samples suggests that a minimum cluster size between 46 and 61 reads results in the removal of rare sequences. It is harder to see a pattern in clusters retained as the y axis is heavily skewed but the number of clusters retained with a minimum read depth of one. Similarly we can see from the clusters and retained reads in the negatives, it is clear that removing any clusters smaller than 41 reads effectively excludes low level background contamination. These values suggest that a minimum cluster size of about 50 reads will be sufficient to remove background noise in our dataset.
 
 #Part 2: Main data analysis
 In part one we decided on an appropriate minimum cluster size for our final analysis we then used this value in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) to run a final analysis. Now we need to examine this output, check that negatives are clean and examine the contents of each well.
 
-##Analysis of trimming process
-###Read in the read statistics and metadata.
+###Analysis of trimming process
+First of all we need to read in the read statistics and metadata then process the data files into annoted forms suitable for plotting.
 ```{r}
 ### Read in the read stats
 final.read.stats<-read.csv(file="data/metaBEAT_read_stats.csv", stringsAsFactors = FALSE, header = TRUE)
@@ -143,7 +151,7 @@ my.plates$type<-ifelse(my.plates$template=="neg1","Negative",
                               ifelse(my.plates$template=="PCRpositive","PCRpositive","Moth sample"))))
 ```
 
-###Merge the dataframes together using match and annotate the samples.
+Merge the dataframes together using match and annotate the samples.
 ```{r}
 ### use match to add the plate data to the read data
 final.read.stats$plate<-my.plates$plate[match(final.read.stats$sample, my.plates$sample)]
@@ -164,7 +172,7 @@ final.read.stats.subs<-subset(final.read.stats, select=c("sample", "total", "tri
 final.read.stats.subs.melt<-melt(final.read.stats.subs, id.vars=c("sample", "type", "plate"))
 ```
 
-###Plot the read depth by plate including positives and negatives.
+Plot the read depth by plate including positives and negatives.
 ```{r}
 ### make the ggplot object + add the jittered dots + add the boxplots and colour them by trim level and make them a bit transparent
 all.samples<-ggplot(aes(y = value, x = plate, fill = variable), data = final.read.stats.subs.melt) +
@@ -206,7 +214,7 @@ dev.off()
 all.samples
 ```
 
-###Plot the read depth by plate excluding positives and negatives.
+Plot the read depth by plate excluding positives and negatives.
 ```{r}
 ### make the ggplot object + add the jittered dots + add the boxplots and colour them by trim level and make them a bit transparent
 samples.only<-ggplot(aes(y = value, x = plate, fill = variable), data = subset(final.read.stats.subs.melt, final.read.stats.subs.melt$type=="Moth sample")) +
@@ -249,7 +257,7 @@ dev.off()
 samples.only
 ```
 
-###Plot the read depth by PCR well type
+Plot the read depth by PCR well type
 ```{r}
 ### order the sample types for plotting
 final.read.stats.subs.melt$type <- factor(final.read.stats.subs.melt$type, 
@@ -298,17 +306,16 @@ dev.off()
 sample.types
 ```
 
-##Well composition
+###Well composition
 We now need to parse the assignments into a per well composition diagram and calculate percentage parasitism.
 
-###Read in the assignment data
+Read in the assignment data
 ```{r}
 my.assignments<-read.table(file="data/metaBEAT_transpose.tsv", stringsAsFactors=FALSE, header=TRUE, sep="\t")
 ### because the data from metaBEAT has been transposed, the column header for column one is now a row header and needs to be replaced to make sense
 colnames(my.assignments)[1]<-"sample"
 ```
 
-###Data processing
 we need to process this data quite a bit to get it annotated, formatted and into the correct order for plotting
 ```{r}
 ### Combine all the fungal sequences as we aren't using the correct marker to examine them properly
@@ -355,7 +362,7 @@ colnames(my.assignments.melt)<-c("Sample","Plate","Plate.numeric","Percent.Thau"
 my.assignments.melt$Sample<-as.character(my.assignments.melt$Sample)
 ```
 
-###Create a separate dataframe to plot OTUs per well
+Create a separate dataframe to plot OTUs per well
 ```{r}
 ### Create a separate dataframe containing only samples
 my.assignments.samps.only<-subset(my.assignments, type=="Moth sample")
@@ -372,7 +379,7 @@ my.colours[length(my.colours)+1]<-"#000000"
 ```
 
 
-###Plot the well composition and OTUs per well diagram
+Plot the well composition and OTUs per well diagram
 ```{r}
 ### set up the ggplot
 well.composition<-ggplot(data=my.assignments.melt, aes(x=Order, y=Reads, fill=Species)) +
@@ -424,6 +431,7 @@ svg(file="diagrams/well_composition.svg", width=12, height=8)
 grid.arrange(well.composition, hist, heights=c(3/4, 1/4), ncol=1)
 dev.off()
 
+### Plot above here for convenience
 grid.arrange(well.composition, hist, heights=c(3/4, 1/4), ncol=1)
 ```
 
