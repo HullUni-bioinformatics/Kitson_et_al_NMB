@@ -77,6 +77,44 @@ dev.off()
 grid.arrange(neg.clusters, neg.reads, ncol=1)
 ```
 
+The read depth for a minimum cluster coverage of one seems a little weird so I'll plot the cumulative total reads for both all minimum cluster sizes and for just one and six.
+
+```{r}
+### Create a cumulative sum variable for each level of minimum cluster coverage
+read.stats$csum <- ave(read.stats$queries, read.stats$clusters_min_cov, FUN=cumsum)
+
+### Creat a plotting order variable
+read.stats$order<-rep(seq(1,nrow(subset(read.stats, clusters_min_cov=="1")),1),times=length(unique(read.stats$clusters_min_cov)))
+
+### Set up the ggplot
+cumulative.all<-ggplot(read.stats, aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
+  ### Add and colour the cumulative sum lines
+  geom_line(aes(colour=as.factor(clusters_min_cov))) +
+  ### Give it some nice colours
+  scale_color_discrete(name="Minimum cluster coverage", l=45, h=c(0,200)) +
+  ### add a sensible y axis label
+  labs(y = "Cumulative read depth", x="Number of samples included") +
+  ### rotate the x-axis labels and resize the text for the svg
+  theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
+
+cumulative.subs<-ggplot(subset(read.stats, clusters_min_cov==c("1","6")), aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
+  ### Add and colour the cumulative sum lines
+  geom_line(aes(colour=as.factor(clusters_min_cov))) +
+  ### Give it some nice colours
+  scale_color_discrete(name="Minimum cluster coverage", l=45, h=c(0,200)) +
+  ### add a sensible y axis label
+  labs(y = "Cumulative read depth", x="Number of samples included") +
+  ### rotate the x-axis labels and resize the text for the svg
+  theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
+
+
+svg(file="diagrams/cumulative_read_depth.svg",12,4)
+grid.arrange(cumulative.all, cumulative.subs, ncol=2)
+dev.off()
+
+### replot the above plot here for convenience
+grid.arrange(cumulative.all, cumulative.subs, ncol=2)
+```
 
 #Part 2: Main data analysis
 In part one we decided on an appropriate minimum cluster size for our final analysis we then used this value in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) to run a final analysis. Now we need to examine this output, check that negatives are clean and examine the contents of each well.
@@ -343,7 +381,7 @@ well.composition<-ggplot(data=my.assignments.melt, aes(x=Order, y=Reads, fill=Sp
   ### wrap the plot by plate
   facet_wrap(~Panel, scales="free_x", nrow=4, ncol=1) +
   ### give it a percentage scale
-  scale_y_continuous(labels = percent_format()) +
+  scale_y_continuous(labels = percent_format(), expand = c(0, 0)) +
   ### set the colours
   scale_fill_manual(name="Species",
                       values = my.colours) +
@@ -365,6 +403,7 @@ well.composition<-ggplot(data=my.assignments.melt, aes(x=Order, y=Reads, fill=Sp
         panel.background = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
+        panel.spacing = unit(1, "lines"),
         axis.line = element_blank(),
         panel.border = element_rect(colour = "black", fill=NA, size=0.1),
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
