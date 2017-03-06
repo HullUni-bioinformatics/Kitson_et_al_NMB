@@ -102,7 +102,7 @@ cumulative.all<-ggplot(read.stats, aes(x=order, y=csum, group=as.factor(clusters
   ### rotate the x-axis labels and resize the text for the svg
   theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
 
-cumulative.subs<-ggplot(subset(read.stats, clusters_min_cov==c("1","6")), aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
+cumulative.subs<-ggplot(subset(read.stats, clusters_min_cov==c("1","6","11")), aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
   ### Add and colour the cumulative sum lines
   geom_line(aes(colour=as.factor(clusters_min_cov))) +
   ### Give it some nice colours
