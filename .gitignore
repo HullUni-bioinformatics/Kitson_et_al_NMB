@@ -10,8 +10,17 @@ Old_files
 combined_read_stats.csv
 metaBEAT_read_stats.csv
 metaBEAT_transpose.tsv
+combined_read_stats_run1.csv
+metaBEAT_read_stats_run1.csv
+metaBEAT_transpose_run1.tsv
+combined_read_stats_run2.csv
+metaBEAT_read_stats_run2.csv
+metaBEAT_transpose_run2.tsv
 OPM2_QueryMap_test.txt
+QueryMap_run1_test.txt
 well_composition_annotate.svg
 well_composition_annotate.png
 Old_diagrams
 pngs
+OPM_NMB_run2-checkpoint.ipynb
+OPM_NMB_run1-checkpoint.ipynb
