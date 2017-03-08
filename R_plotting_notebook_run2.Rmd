@@ -25,7 +25,7 @@ library(RColorBrewer)
 The aim of these plots is to look for a region of minimum cluster sizes that result in stable values for clusters retained or per well read depth and then choose the __minimum__ stable value to maximise clusters retained. The assumption underlying this is that once we reach a stable set of parameter values we are looking at the real data *i.e.* any clusters retained in the stable region of minimum cluster size represent genuine biological sequences and not rare sequencing/PCR error.
 ```{r}
 ### Read in the data and look at the number of clusters and read depth against minimum cluster size
-read.stats<-read.csv(file="data/combined_read_stats.csv", stringsAsFactors=FALSE, header=TRUE)
+read.stats<-read.csv(file="data/combined_read_stats_run2.csv", stringsAsFactors=FALSE, header=TRUE)
 
 ### Create a plot of number clusters in PCR wells by minimum cluster size
 clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
@@ -37,7 +37,7 @@ reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) 
   labs(y = "Per well read depth", x="Minimum cluster coverage")
 
 ### combine the plots and write them to an svg file
-svg(file="diagrams/coverage.svg",12,8)
+svg(file="diagrams/coverage_run2.svg",12,8)
 grid.arrange(clusters, reads, ncol=1)
 dev.off()
 
@@ -73,7 +73,7 @@ neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(c
   labs(y = "Per well read depth", x="Minimum cluster coverage")
 
 ### combine the plots and write them to an svg file
-svg(file="diagrams/negatives_coverage.svg",12,8)
+svg(file="diagrams/negatives_coverage_run2.svg",12,8)
 grid.arrange(neg.clusters, neg.reads, ncol=1)
 dev.off()
 
@@ -113,7 +113,7 @@ cumulative.subs<-ggplot(subset(read.stats, clusters_min_cov==c("1","6","11")), a
   theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
 
 
-svg(file="diagrams/cumulative_read_depth.svg",12,8)
+svg(file="diagrams/cumulative_read_depth_run2.svg",12,8)
 grid.arrange(cumulative.all, cumulative.subs, ncol=1)
 dev.off()
 
@@ -131,10 +131,10 @@ In part one we decided on an appropriate minimum cluster size for our final anal
 First of all we need to read in the read statistics and metadata then process the data files into annoted forms suitable for plotting.
 ```{r}
 ### Read in the read stats
-final.read.stats<-read.csv(file="data/metaBEAT_read_stats.csv", stringsAsFactors = FALSE, header = TRUE)
+final.read.stats<-read.csv(file="data/metaBEAT_read_stats_run2.csv", stringsAsFactors = FALSE, header = TRUE)
 
 ### read in the sample metadata
-my.plates<-read.table(file="data/sample_metadata.tsv", stringsAsFactors=FALSE, header=TRUE, sep="\t")
+my.plates<-read.table(file="data/sample_metadata_run2.tsv", stringsAsFactors=FALSE, header=TRUE, sep="\t")
 
 ### greedy regex to split the sample string by the underscore and leave us with a column for nest and a column for indentifier
 my.plates<-cbind(my.plates, do.call(rbind, strsplit(as.character(my.plates$sample), "_|_.*_")))
@@ -206,7 +206,7 @@ all.samples<-ggplot(aes(y = value, x = plate, fill = variable), data = final.rea
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
 ### Plot above as a svg
-svg(file="diagrams/trimming_summary_all_samples.svg",12,8)
+svg(file="diagrams/trimming_summary_all_samples_run2.svg",12,8)
 all.samples
 dev.off()
 
@@ -249,7 +249,7 @@ samples.only<-ggplot(aes(y = value, x = plate, fill = variable), data = subset(f
 
 
 ### Plot above as a svg
-svg(file="diagrams/trimming_summary_moths_only.svg",12,8)
+svg(file="diagrams/trimming_summary_moths_only_run2.svg",12,8)
 samples.only
 dev.off()
 
@@ -298,7 +298,7 @@ sample.types<-ggplot(aes(y = value, x = type, fill = variable), data = final.rea
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
 ### Plot above as a svg
-svg(file="diagrams/trimming_summary_sample_types.svg", 12, 8)
+svg(file="diagrams/trimming_summary_sample_types_run2.svg", 12, 8)
 sample.types
 dev.off()
 
@@ -427,7 +427,7 @@ hist<- ggplot(hit.hist, aes(factor(reorder(OTUs, -OTUs)))) +
         axis.line = element_blank(),
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
-svg(file="diagrams/well_composition.svg", width=12, height=8)
+svg(file="diagrams/well_composition_run2.svg", width=12, height=8)
 grid.arrange(well.composition, hist, heights=c(3/4, 1/4), ncol=1)
 dev.off()
 
