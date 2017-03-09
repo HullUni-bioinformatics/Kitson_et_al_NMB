@@ -5,8 +5,13 @@ In order to make our analyses fully reproducable we provide:
 - [Rnotebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/R_plotting_notebook_run2.Rmd) for taking taxonomic assignment and read depth data from the Jupyter notebooks and plotting figures for the manuscript.
 - [data](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/data), e.g. metadata for annotation of plots and scripts for dowloading raw sequencing data.
 - [raw diagrams](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/diagrams) as output by the R note books ready for annotation in Inkscape.
+- [Supplementary material as described in the manuscript](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/supplementary_material)
+
+Rmarkdown notebooks should be executed in the root of the cloned repository while Jupyter notebooks can be executed in their folder. All filepaths are correctly specified for the various analyses.
 
 [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) was run in a [docker](https://hub.docker.com/r/chrishah/metabeat/) container (v0.97.7).
+
+***********************************************************************************************************
 
 __A previous version of this repository (version 1.2) is archived: [![DOI](https://zenodo.org/badge/19905/HullUni-bioinformatics/Kitson_et_al_NMB.svg)](https://zenodo.org/badge/latestdoi/19905/HullUni-bioinformatics/Kitson_et_al_NMB)__
 
