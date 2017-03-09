@@ -1,4 +1,4 @@
-# Kitson_et_al_NMB (version 1.3)
+#Kitson_et_al_NMB (version 1.3)
 
 In order to make our analyses fully reproducable we provide:
 - [Jupyter notebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/Jupyter_notebook) for processing raw read data into taxonomic assignments and exploring analysis parameters.
