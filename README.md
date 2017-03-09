@@ -9,7 +9,7 @@ In order to make our analyses fully reproducable we provide:
 
 Rmarkdown notebooks should be executed in the root of the cloned repository while Jupyter notebooks can be executed in their folder. All filepaths are correctly specified for the various analyses.
 
-[metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) was run in a [docker](https://hub.docker.com/r/chrishah/metabeat/) container (v0.97.7).
+[metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) (v0.97.7) was run in a [docker](https://hub.docker.com/r/chrishah/metabeat/) container.
 
 ***********************************************************************************************************
 
