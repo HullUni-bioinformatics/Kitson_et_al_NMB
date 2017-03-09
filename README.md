@@ -1,11 +1,12 @@
 # Kitson_et_al_NMB (version 1.3)
 
 In order to make our analyses fully reproducable we provide:
-- Jupyter [notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/notebook)
-- [Rnotebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/R_plotting_notebook.Rmd)
-- [data](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/data), e.g. custom reference database
+- [Jupyter notebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/Jupyter_notebook) for processing raw read data into taxonomic assignments and exploring analysis parameters.
+- [Rnotebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/R_plotting_notebook_run2.Rmd) for taking taxonomic assignment and read depth data from the Jupyter notebooks and plotting figures for the manuscript.
+- [data](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/data), e.g. metadata for annotation of plots and scripts for dowloading raw sequencing data.
+- [raw diagrams](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/diagrams) as output by the R note books ready for annotation in Inkscape.
 
-[metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) was run in a [docker](https://hub.docker.com/r/chrishah/metabeat/) container (v0.8).
+[metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) was run in a [docker](https://hub.docker.com/r/chrishah/metabeat/) container (v0.97.7).
 
 __A previous version of this repository (version 1.2) is archived: [![DOI](https://zenodo.org/badge/19905/HullUni-bioinformatics/Kitson_et_al_NMB.svg)](https://zenodo.org/badge/latestdoi/19905/HullUni-bioinformatics/Kitson_et_al_NMB)__
 
