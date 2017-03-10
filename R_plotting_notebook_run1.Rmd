@@ -30,11 +30,17 @@ read.stats<-read.csv(file="data/combined_read_stats_run1.csv", stringsAsFactors=
 ### Create a plot of number clusters in PCR wells by minimum cluster size
 clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
-  labs(y = "Clusters retained", x="Minimum cluster coverage")
+  labs(y = "Clusters retained", x="Minimum cluster coverage") +
+### make the labels more visible
+  theme(axis.text = element_text(size = rel(1.2)),
+         axis.title = element_text(size = rel(1.2)))
 ### Create a plot of read depth in PCR wells by minimum cluster size
 reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
-  labs(y = "Per well read depth", x="Minimum cluster coverage")
+  labs(y = "Per well read depth", x="Minimum cluster coverage") +
+### make the labels more visible
+  theme(axis.text = element_text(size = rel(1.2)),
+         axis.title = element_text(size = rel(1.2)))
 
 ### combine the plots and write them to an svg file
 svg(file="diagrams/coverage_run1.svg",12,8)
@@ -66,11 +72,17 @@ read.stats$type<-as.factor(read.stats$type)
 ### Create a plot of number clusters in negative wells by minimum cluster size
 neg.clusters<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
-  labs(y = "Clusters retained", x="Minimum cluster coverage")
+  labs(y = "Clusters retained", x="Minimum cluster coverage") +
+### make the labels more visible
+       theme(axis.text = element_text(size = rel(1.2)),
+         axis.title = element_text(size = rel(1.2)))
 ### Create a plot of read depth in negative wells by minimum cluster size
 neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
-  labs(y = "Per well read depth", x="Minimum cluster coverage")
+  labs(y = "Per well read depth", x="Minimum cluster coverage") +
+### make the labels more visible  
+  theme(axis.text = element_text(size = rel(1.2)),
+         axis.title = element_text(size = rel(1.2)))
 
 ### combine the plots and write them to an svg file
 svg(file="diagrams/negatives_coverage_run1.svg",12,8)
@@ -100,7 +112,8 @@ The per well read depth for a minimum cluster coverage of one is unexpected. We 
   ### add a sensible y axis label
   #labs(y = "Cumulative read depth", x="Number of samples included") +
   ### rotate the x-axis labels and resize the text for the svg
-  #theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
+  #theme(axis.text = element_text(size = rel(1.2), colour = "black", angle=90)),
+  #       axis.title = element_text(size = rel(1.2)))
 
 #cumulative.subs<-ggplot(subset(read.stats, clusters_min_cov==c("1","6","11")), aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
   ### Add and colour the cumulative sum lines
@@ -110,7 +123,9 @@ The per well read depth for a minimum cluster coverage of one is unexpected. We 
   ### add a sensible y axis label
   #labs(y = "Cumulative read depth", x="Number of samples included") +
   ### rotate the x-axis labels and resize the text for the svg
-  #theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
+  #theme(axis.text = element_text(size = rel(1.2), colour = "black", angle=90)),
+  #       axis.title = element_text(size = rel(1.2)))
+
 
 
 #svg(file="diagrams/cumulative_read_depth_run1.svg",12,8)
