@@ -86,39 +86,39 @@ The per well read depth for a minimum cluster coverage of one is unexpected. We 
 
 ```{r}
 ### Create a cumulative sum variable for each level of minimum cluster coverage
-read.stats$csum <- ave(read.stats$queries, read.stats$clusters_min_cov, FUN=cumsum)
+#read.stats$csum <- ave(read.stats$queries, read.stats$clusters_min_cov, FUN=cumsum)
 
 ### Creat a plotting order variable
-read.stats$order<-rep(seq(1,nrow(subset(read.stats, clusters_min_cov=="1")),1),times=length(unique(read.stats$clusters_min_cov)))
+#read.stats$order<-rep(seq(1,nrow(subset(read.stats, #clusters_min_cov=="1")),1),times=length(unique(read.stats$clusters_min_cov)))
 
 ### Set up the ggplot
-cumulative.all<-ggplot(read.stats, aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
+#cumulative.all<-ggplot(read.stats, aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
   ### Add and colour the cumulative sum lines
-  geom_line(aes(colour=as.factor(clusters_min_cov))) +
+#  geom_line(aes(colour=as.factor(clusters_min_cov))) +
   ### Give it some nice colours
-  scale_color_discrete(name="Minimum cluster coverage", l=45, h=c(0,200)) +
+#  scale_color_discrete(name="Minimum cluster coverage", l=45, h=c(0,200)) +
   ### add a sensible y axis label
-  labs(y = "Cumulative read depth", x="Number of samples included") +
+#  labs(y = "Cumulative read depth", x="Number of samples included") +
   ### rotate the x-axis labels and resize the text for the svg
-  theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
+#  theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
 
-cumulative.subs<-ggplot(subset(read.stats, clusters_min_cov==c("1","6","11")), aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
+#cumulative.subs<-ggplot(subset(read.stats, clusters_min_cov==c("1","6","11")), aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
   ### Add and colour the cumulative sum lines
-  geom_line(aes(colour=as.factor(clusters_min_cov))) +
+#  geom_line(aes(colour=as.factor(clusters_min_cov))) +
   ### Give it some nice colours
-  scale_color_discrete(name="Minimum cluster coverage", l=45, h=c(0,200)) +
+#  scale_color_discrete(name="Minimum cluster coverage", l=45, h=c(0,200)) +
   ### add a sensible y axis label
-  labs(y = "Cumulative read depth", x="Number of samples included") +
+#  labs(y = "Cumulative read depth", x="Number of samples included") +
   ### rotate the x-axis labels and resize the text for the svg
-  theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
+#  theme(axis.text.x = element_text(size = rel(1), colour = "black", angle=90))
 
 
-svg(file="diagrams/cumulative_read_depth_run2.svg",12,8)
-grid.arrange(cumulative.all, cumulative.subs, ncol=1)
-dev.off()
+#svg(file="diagrams/cumulative_read_depth_run2.svg",12,8)
+#grid.arrange(cumulative.all, cumulative.subs, ncol=1)
+#dev.off()
 
 ### replot the above plot here for convenience
-grid.arrange(cumulative.all, cumulative.subs, ncol=1)
+#grid.arrange(cumulative.all, cumulative.subs, ncol=1)
 ```
 
 ###Conclusions
