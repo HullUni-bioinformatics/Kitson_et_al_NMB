@@ -201,7 +201,7 @@ all.samples<-ggplot(aes(y = value, x = plate, fill = variable), data = final.rea
                       breaks=c("total", "trimmed.total", "queries"), 
                       labels=c("Raw reads", "Trimmed reads", "Reads in clusters")) +
   scale_x_discrete(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
+   scale_y_continuous(expand = c(0, 0), limits=c(0,120000)) +
   ### rotate the x-axis labels and resize the text for the svg
   theme(axis.text.x = element_text(size=rel(1.5), colour="black", angle=45, hjust=1), 
         axis.text.y = element_text(size=rel(1.5), colour="black", angle=45, hjust=1), 
@@ -243,7 +243,7 @@ samples.only<-ggplot(aes(y = value, x = plate, fill = variable), data = subset(f
                       breaks=c("total", "trimmed.total", "queries"), 
                       labels=c("Raw reads", "Trimmed reads", "Reads in clusters")) +
   scale_x_discrete(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
+   scale_y_continuous(expand = c(0, 0), limits=c(0,120000)) +
   ### rotate the x-axis labels and resize the text for the svg
   theme(axis.text.x = element_text(size=rel(1.5), colour="black", angle=45, hjust=1), 
         axis.text.y = element_text(size=rel(1.5), colour="black", angle=45, hjust=1), 
@@ -293,7 +293,7 @@ sample.types<-ggplot(aes(y = value, x = type, fill = variable), data = final.rea
                       breaks=c("total", "trimmed.total", "queries"), 
                       labels=c("Raw reads", "Trimmed reads", "Reads in clusters")) +
   scale_x_discrete(expand = c(0, 0)) +
-  scale_y_continuous(expand = c(0, 0)) +
+   scale_y_continuous(expand = c(0, 0), limits=c(0,120000)) +
   ### rotate the x-axis labels and resize the text for the svg
   theme(axis.text.x = element_text(size=rel(1.5), colour="black", angle=45, hjust=1), 
         axis.text.y = element_text(size=rel(1.5), colour="black", angle=45, hjust=1), 
@@ -326,28 +326,31 @@ sample.types
 ### totals and counts for text
 counting<-subset(final.read.stats, final.read.stats$type=="Moth sample")
 
-paste("Maximum raw read count =", max(counting$total))
-paste("Minimum raw read count =", min(counting$total))
-paste("Mean raw read count =", round(mean(counting$total),1))
-paste("Standard deviation of raw read count =", round(sd(counting$total),1))
-paste("Total raw reads =", sum(counting$total))
+paste("Total raw reads for all samples=", sum(final.read.stats$total))
+paste("Total trimmed reads for all samples=", sum(final.read.stats$trimmed.total))
 
-paste("Maximum trimmed read count =", max(counting$trimmed.total))
-paste("Minimum trimmed read count =", min(counting$trimmed.total))
-paste("Mean trimmed read count =", round(mean(counting$trimmed.total),1))
-paste("Standard deviation of trimmed read count =", round(sd(counting$trimmed.total),1))
-paste("Total trimmed reads =", sum(counting$trimmed.total))
+paste("Maximum raw read count for moth samples =", max(counting$total))
+paste("Minimum raw read count for moth samples =", min(counting$total))
+paste("Mean raw read count for moth samples =", round(mean(counting$total),1))
+paste("Standard deviation of raw read count for moth samples =", round(sd(counting$total),1))
+paste("Total raw reads for moth samples=", sum(counting$total))
 
-paste("Maximum retained cluster count =", max(counting$cluster_above_thres))
-paste("Minimum retained cluster count =", min(counting$cluster_above_thres))
-paste("Mean retained cluster count =", round(mean(counting$cluster_above_thres),1))
-paste("Standard deviation of retained cluster count =", round(sd(counting$cluster_above_thres),1))
+paste("Maximum trimmed read count for moth samples =", max(counting$trimmed.total))
+paste("Minimum trimmed read count for moth samples =", min(counting$trimmed.total))
+paste("Mean trimmed read count for moth samples =", round(mean(counting$trimmed.total),1))
+paste("Standard deviation of trimmed read count for moth samples =", round(sd(counting$trimmed.total),1))
+paste("Total trimmed reads for moth samples=", sum(counting$trimmed.total))
 
-paste("Maximum reads per well =", max(counting$queries))
-paste("Minimum reads per well =", min(counting$queries))
-paste("Mean reads per well =", round(mean(counting$queries),1))
-paste("Standard deviation of reads per well =", round(sd(counting$queries),1))
-paste("Total clustered reads =", sum(counting$queries))
+paste("Maximum retained cluster count for moth samples =", max(counting$cluster_above_thres))
+paste("Minimum retained cluster count for moth samples =", min(counting$cluster_above_thres))
+paste("Mean retained cluster count for moth samples =", round(mean(counting$cluster_above_thres),1))
+paste("Standard deviation of retained cluster count for moth samples =", round(sd(counting$cluster_above_thres),1))
+
+paste("Maximum reads per well for moth samples =", max(counting$queries))
+paste("Minimum reads per well for moth samples =", min(counting$queries))
+paste("Mean reads per well for moth samples =", round(mean(counting$queries),1))
+paste("Standard deviation of reads per well for moth samples =", round(sd(counting$queries),1))
+paste("Total clustered reads for moth samples =", sum(counting$queries))
 ```
 
 ###Well composition
