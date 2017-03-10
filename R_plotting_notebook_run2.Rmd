@@ -318,6 +318,35 @@ dev.off()
 sample.types
 ```
 
+###Trimming summary
+```{r}
+### totals and counts for text
+counting<-subset(final.read.stats, final.read.stats$type=="Moth sample")
+
+paste("Maximum raw read count =", max(counting$total))
+paste("Minimum raw read count =", min(counting$total))
+paste("Mean raw read count =", round(mean(counting$total),1))
+paste("Standard deviation of raw read count =", round(sd(counting$total),1))
+paste("Total raw reads =", sum(counting$total))
+
+paste("Maximum trimmed read count =", max(counting$trimmed.total))
+paste("Minimum trimmed read count =", min(counting$trimmed.total))
+paste("Mean trimmed read count =", round(mean(counting$trimmed.total),1))
+paste("Standard deviation of trimmed read count =", round(sd(counting$trimmed.total),1))
+paste("Total trimmed reads =", sum(counting$trimmed.total))
+
+paste("Maximum retained cluster count =", max(counting$cluster_above_thres))
+paste("Minimum retained cluster count =", min(counting$cluster_above_thres))
+paste("Mean retained cluster count =", round(mean(counting$cluster_above_thres),1))
+paste("Standard deviation of retained cluster count =", round(sd(counting$cluster_above_thres),1))
+
+paste("Maximum reads per well =", max(counting$queries))
+paste("Minimum reads per well =", min(counting$queries))
+paste("Mean reads per well =", round(mean(counting$queries),1))
+paste("Standard deviation of reads per well =", round(sd(counting$queries),1))
+paste("Total clustered reads =", sum(counting$queries))
+```
+
 ###Well composition
 We now need to parse the assignments into a per well composition diagram and calculate percentage parasitism.
 
