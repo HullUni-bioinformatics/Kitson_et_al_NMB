@@ -81,23 +81,6 @@ neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(c
 
 ```{r}
 ### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
-grob.all.clusters <- ggplotGrob(all.clusters)
-grob.neg.clusters <- ggplotGrob(neg.clusters)
-g.clusters <- rbind(grob.all.clusters , grob.neg.clusters , size="first")
-g.clusters$widths <- unit.pmax(grob.all.clusters$widths, grob.neg.clusters$widths)
-grid.newpage()
-
-### Write the grobbed ggplots to an svg
-svg(file="diagrams/all_clusterdepths_run2.svg",12,8)
-grid.draw(g.clusters)
-dev.off()
-
-### replot the above plot here for convenience
-grid.draw(g.clusters)
-```
-
-```{r}
-### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
 grob.all.reads <- ggplotGrob(all.reads)
 grob.neg.reads <- ggplotGrob(neg.reads)
 g.reads <- rbind(grob.all.reads , grob.neg.reads , size="first")
@@ -105,12 +88,29 @@ g.reads$widths <- unit.pmax(grob.all.reads$widths, grob.neg.reads$widths)
 grid.newpage()
 
 ### Write the grobbed ggplots to an svg
-svg(file="diagrams/all_readdepths_run2.svg",12,8)
+svg(file="diagrams/Figure3_run2.svg",12,8)
 grid.draw(g.reads)
 dev.off()
 
 ### replot the above plot here for convenience
 grid.draw(g.reads)
+```
+
+```{r}
+### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
+grob.all.clusters <- ggplotGrob(all.clusters)
+grob.neg.clusters <- ggplotGrob(neg.clusters)
+g.clusters <- rbind(grob.all.clusters , grob.neg.clusters , size="first")
+g.clusters$widths <- unit.pmax(grob.all.clusters$widths, grob.neg.clusters$widths)
+grid.newpage()
+
+### Write the grobbed ggplots to an svg
+svg(file="diagrams/Figure4_run2.svg",12,8)
+grid.draw(g.clusters)
+dev.off()
+
+### replot the above plot here for convenience
+grid.draw(g.clusters)
 ```
 
 ###Conclusions
@@ -241,7 +241,7 @@ samples.only<-ggplot(aes(y = value, x = plate, fill = variable), data = subset(f
 
 
 ### Plot above as a svg
-svg(file="diagrams/trimming_summary_moths_only_run2.svg",12,8)
+svg(file="diagrams/Figure_5_run2.svg",12,8)
 samples.only
 dev.off()
 
@@ -290,7 +290,7 @@ sample.types<-ggplot(aes(y = value, x = type, fill = variable), data = final.rea
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
 ### Plot above as a svg
-svg(file="diagrams/trimming_summary_sample_types_run2.svg", 12, 8)
+svg(file="diagrams/Figure6_run2.svg", 12, 8)
 sample.types
 dev.off()
 
@@ -451,7 +451,7 @@ hist<- ggplot(hit.hist, aes(factor(reorder(OTUs, -OTUs)))) +
         axis.line = element_blank(),
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
-svg(file="diagrams/well_composition_run2.svg", width=12, height=8)
+svg(file="diagrams/Figure7_run2.svg", width=12, height=8)
 grid.arrange(well.composition, hist, heights=c(3/4, 1/4), ncol=1)
 dev.off()
 
