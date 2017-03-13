@@ -241,7 +241,7 @@ samples.only<-ggplot(aes(y = value, x = plate, fill = variable), data = subset(f
 
 
 ### Plot above as a svg
-svg(file="diagrams/Figure_5_run2.svg",12,8)
+svg(file="diagrams/Figure5_run2.svg",12,8)
 samples.only
 dev.off()
 
