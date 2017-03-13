@@ -67,6 +67,7 @@ read.stats$type<-as.factor(read.stats$type)
 neg.clusters<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
   labs(y = "Clusters retained (negative PCR wells)", x="Minimum cluster coverage") +
+    scale_y_continuous(expand = c(0, 0), limits = c(0,2.5)) +
 ### make the labels more visible
   theme(axis.text = element_text(size = rel(1.2)),
          axis.title = element_text(size = rel(1.2)))
