@@ -32,14 +32,14 @@ read.stats<-read.csv(file="data/combined_read_stats_run2.csv", stringsAsFactors=
 ### Create a plot of number clusters in PCR wells by minimum cluster size
 all.clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
-  labs(y = "Clusters retained", x="Minimum cluster coverage") +
+  labs(y = "Clusters retained (all samples)", x="Minimum cluster coverage") +
 ### make the labels more visible
   theme(axis.text = element_text(size = rel(1.2)),
          axis.title = element_text(size = rel(1.2)))
 ### Create a plot of read depth in PCR wells by minimum cluster size
 all.reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
-  labs(y = "Per well read depth", x="Minimum cluster coverage") +
+  labs(y = "Per well read depth (all samples)", x="Minimum cluster coverage") +
 ### make the labels more visible
   theme(axis.text = element_text(size = rel(1.2)),
          axis.title = element_text(size = rel(1.2)))
@@ -66,14 +66,14 @@ read.stats$type<-as.factor(read.stats$type)
 ### Create a plot of number clusters in negative wells by minimum cluster size
 neg.clusters<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
-  labs(y = "Clusters retained", x="Minimum cluster coverage") +
+  labs(y = "Clusters retained (negatives only)", x="Minimum cluster coverage") +
 ### make the labels more visible
   theme(axis.text = element_text(size = rel(1.2)),
          axis.title = element_text(size = rel(1.2)))
 ### Create a plot of read depth in negative wells by minimum cluster size
 neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
-  labs(y = "Per well read depth", x="Minimum cluster coverage") +
+  labs(y = "Per well read depth (negatives only)", x="Minimum cluster coverage") +
 ### make the labels more visible
   theme(axis.text = element_text(size = rel(1.2)),
          axis.title = element_text(size = rel(1.2)))
