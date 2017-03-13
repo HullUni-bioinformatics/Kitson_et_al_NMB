@@ -17,8 +17,10 @@ rm(list=ls())
 library(reshape2)
 library(ggplot2)
 library(gridExtra)
+library(grid)
 library(scales)
 library(RColorBrewer)
+library(gtable)
 ```
 
 ###Plotting clusters retained and read depth against minimum cluster size - __all samples__
@@ -78,66 +80,37 @@ neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(c
 ```
 
 ```{r}
-### combine the plots and write them to an svg file
+### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
+grob.all.clusters <- ggplotGrob(all.clusters)
+grob.neg.clusters <- ggplotGrob(neg.clusters)
+g.clusters <- rbind(grob.all.clusters , grob.neg.clusters , size="first")
+g.clusters$widths <- unit.pmax(grob.all.clusters$widths, grob.neg.clusters$widths)
+grid.newpage()
+
+### Write the grobbed ggplots to an svg
 svg(file="diagrams/all_clusterdepths_run1.svg",12,8)
-grid.arrange(all.clusters, neg.clusters, ncol=1)
+grid.draw(g.clusters)
 dev.off()
 
 ### replot the above plot here for convenience
-grid.arrange(all.clusters, neg.clusters, ncol=1)
+grid.draw(g.clusters)
 ```
+
 ```{r}
-### combine the plots and write them to an svg file
+### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
+grob.all.reads <- ggplotGrob(all.reads)
+grob.neg.reads <- ggplotGrob(neg.reads)
+g.reads <- rbind(grob.all.reads , grob.neg.reads , size="first")
+g.reads$widths <- unit.pmax(grob.all.reads$widths, grob.neg.reads$widths)
+grid.newpage()
+
+### Write the grobbed ggplots to an svg
 svg(file="diagrams/all_readdepths_run1.svg",12,8)
-grid.arrange(all.reads, neg.reads, ncol=1)
+grid.draw(g.reads)
 dev.off()
 
 ### replot the above plot here for convenience
-grid.arrange(all.reads, neg.reads, ncol=1)
-```
-
-
-###Plotting cumulative read depth across samples
-The per well read depth for a minimum cluster coverage of one is unexpected. We would expect that more reads would be retained at a minimum cluster size of one read than a minimum cluster size of six but clearly fewer reads are being retained. To examine this further we will plot the cumulative total reads both for all minimum cluster sizes and for just one and six reads.
-
-```{r}
-### Create a cumulative sum variable for each level of minimum cluster coverage
-#read.stats$csum <- ave(read.stats$queries, read.stats$clusters_min_cov, FUN=cumsum)
-
-### Creat a plotting order variable
-#read.stats$order<-rep(seq(1,nrow(subset(read.stats, #clusters_min_cov=="1")),1),times=length(unique(read.stats$clusters_min_cov)))
-
-### Set up the ggplot
-#cumulative.all<-ggplot(read.stats, aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
-  ### Add and colour the cumulative sum lines
- # geom_line(aes(colour=as.factor(clusters_min_cov))) +
-  ### Give it some nice colours
-  #scale_color_discrete(name="Minimum cluster coverage", l=45, h=c(0,200)) +
-  ### add a sensible y axis label
-  #labs(y = "Cumulative read depth", x="Number of samples included") +
-  ### rotate the x-axis labels and resize the text for the svg
-  #theme(axis.text = element_text(size = rel(1.2), colour = "black", angle=90)),
-  #       axis.title = element_text(size = rel(1.2)))
-
-#cumulative.subs<-ggplot(subset(read.stats, clusters_min_cov==c("1","6","11")), aes(x=order, y=csum, group=as.factor(clusters_min_cov))) +
-  ### Add and colour the cumulative sum lines
-#  geom_line(aes(colour=as.factor(clusters_min_cov))) +
-  ### Give it some nice colours
- # scale_color_discrete(name="Minimum cluster coverage", l=45, h=c(0,200)) +
-  ### add a sensible y axis label
-  #labs(y = "Cumulative read depth", x="Number of samples included") +
-  ### rotate the x-axis labels and resize the text for the svg
-  #theme(axis.text = element_text(size = rel(1.2), colour = "black", angle=90)),
-  #       axis.title = element_text(size = rel(1.2)))
-
-
-
-#svg(file="diagrams/cumulative_read_depth_run1.svg",12,8)
-#grid.arrange(cumulative.all, cumulative.subs, ncol=1)
-#dev.off()
-
-### replot the above plot here for convenience
-#grid.arrange(cumulative.all, cumulative.subs, ncol=1)
+grid.draw(g.reads)
 ```
 
 ###Conclusions
