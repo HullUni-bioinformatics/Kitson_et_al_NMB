@@ -28,27 +28,19 @@ The aim of these plots is to look for a region of minimum cluster sizes that res
 read.stats<-read.csv(file="data/combined_read_stats_run2.csv", stringsAsFactors=FALSE, header=TRUE)
 
 ### Create a plot of number clusters in PCR wells by minimum cluster size
-clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
+all.clusters<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=cluster_above_thres)) +
   geom_boxplot() +
   labs(y = "Clusters retained", x="Minimum cluster coverage") +
 ### make the labels more visible
   theme(axis.text = element_text(size = rel(1.2)),
          axis.title = element_text(size = rel(1.2)))
 ### Create a plot of read depth in PCR wells by minimum cluster size
-reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) +
+all.reads<-ggplot(data = read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) +
   geom_boxplot() +
   labs(y = "Per well read depth", x="Minimum cluster coverage") +
 ### make the labels more visible
   theme(axis.text = element_text(size = rel(1.2)),
          axis.title = element_text(size = rel(1.2)))
-
-### combine the plots and write them to an svg file
-svg(file="diagrams/coverage_run2.svg",12,8)
-grid.arrange(clusters, reads, ncol=1)
-dev.off()
-
-### replot the above plot here for convenience
-grid.arrange(clusters, reads, ncol=1)
 ```
 
 ###Plotting clusters retained and read depth against minimum cluster size - __just negatives__
@@ -83,14 +75,25 @@ neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(c
 ### make the labels more visible
   theme(axis.text = element_text(size = rel(1.2)),
          axis.title = element_text(size = rel(1.2)))
+```
 
+```{r}
 ### combine the plots and write them to an svg file
-svg(file="diagrams/negatives_coverage_run2.svg",12,8)
-grid.arrange(neg.clusters, neg.reads, ncol=1)
+svg(file="diagrams/all_clusterdepths_run2.svg",12,8)
+grid.arrange(all.clusters, neg.clusters, ncol=1)
 dev.off()
 
 ### replot the above plot here for convenience
-grid.arrange(neg.clusters, neg.reads, ncol=1)
+grid.arrange(all.clusters, neg.clusters, ncol=1)
+```
+```{r}
+### combine the plots and write them to an svg file
+svg(file="diagrams/all_readdepths_run2.svg",12,8)
+grid.arrange(all.reads, neg.reads, ncol=1)
+dev.off()
+
+### replot the above plot here for convenience
+grid.arrange(all.reads, neg.reads, ncol=1)
 ```
 
 ###Plotting cumulative read depth across samples
