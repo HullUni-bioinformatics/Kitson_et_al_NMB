@@ -16,6 +16,7 @@ metaBEAT_transpose_run1.tsv
 combined_read_stats_run2.csv
 metaBEAT_read_stats_run2.csv
 metaBEAT_transpose_run2.tsv
+combined_illegal_read_stats_run2.csv
 Illegal_transpose_run2.tsv
 Illegal_read_stats_run2.csv
 OPM2_QueryMap_test.txt
