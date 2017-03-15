@@ -114,8 +114,33 @@ dev.off()
 grid.draw(g.clusters)
 ```
 
+###Mistagging analysis
+Now that we have checked for a stable cluster size and contamination in our negatives, we should also check for mistagging in our sequencing data. To do this we have deliberately excluded certain tag combinations during PCR set up. We can now perform an analysis similar to the ones above but instead of using our tag combinations associated with samples, we use a query map with all the illegal tag combinations (84 combinations).
+
+```{r}
+### Read in the data and look at the number of clusters and read depth against minimum cluster size
+null.read.stats<-read.csv(file="data/combined_illegal_read_stats_run2.csv", stringsAsFactors=FALSE, header=TRUE)
+
+### Create a plot of read depth in PCR wells by minimum cluster size
+null.reads<-ggplot(data = null.read.stats, aes(x=as.factor(clusters_min_cov), y=queries)) +
+  geom_boxplot() +
+  labs(y = "Per well read depth (all PCR wells)", x="Minimum cluster coverage") +
+### make the labels more visible
+  theme(axis.text = element_text(size = rel(1.2)),
+         axis.title = element_text(size = rel(1.2)))
+
+### Write the grobbed ggplots to an svg
+svg(file="diagrams/Mistagging_run2.svg",12,8)
+null.reads
+dev.off()
+
+### replot the above plot here for convenience
+null.reads
+```
+
+
 ###Conclusions
-Looking at the plot for per well read depth for all samples suggests that a minimum cluster size between 46 and 61 reads results in the removal of rare sequences. It is harder to see a pattern in clusters retained as the y axis is heavily skewed but the number of clusters retained with a minimum read depth of one. Similarly we can see from the clusters and retained reads in the negatives, it is clear that removing any clusters smaller than 41 reads effectively excludes low level background contamination. These values suggest that a minimum cluster size of about 50 reads will be sufficient to remove background noise in our dataset.
+Looking at the plots for per well read  and cluster depths for all samples suggests that a minimum cluster size between 46 and 61 reads results in the removal of rare sequences. Similarly we can see from the clusters and retained reads in the negatives, it is clear that removing any clusters smaller than 41 reads effectively excludes low level background contamination. Finally the mistagging analysis suggestes that aminimum read depth of >66 reads is sufficient to remove background contamination from mistagging. These values suggest that a minimum cluster size of about 70 reads will be sufficient to remove background noise in our dataset.
 
 #Part 2: Main data analysis
 In part one we decided on an appropriate minimum cluster size for our final analysis we then used this value in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) to run a final analysis. Now we need to examine this output, check that negatives are clean and examine the contents of each well.
@@ -474,4 +499,3 @@ paste("Percentage parasitism for Carcelia illiaca = ", round(percent.carcelia,1)
 paste("Percentage parasitism for Compsilura concinnata = ", round(percent.compsilura,1),"%", sep="")
 
 ```
-
