@@ -17,7 +17,7 @@ combined_read_stats_run2.csv
 metaBEAT_read_stats_run2.csv
 metaBEAT_transpose_run2.tsv
 Illegal_transpose_run2.tsv
-Illegal_read_stats_run2.tsv
+Illegal_read_stats_run2.csv
 OPM2_QueryMap_test.txt
 QueryMap_run1_test.txt
 well_composition_annotate_run1.svg
