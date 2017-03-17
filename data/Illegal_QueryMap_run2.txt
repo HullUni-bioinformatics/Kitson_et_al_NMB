@@ -921,4 +921,4 @@ Plate21_neg2_H	fastq	../../../Raw_data/run2/Plate34_S12_L001_R1_001.fastq.gz	../
 Plate21_12_F	fastq	../../../Raw_data/run2/Plate34_S12_L001_R1_001.fastq.gz	../../../Raw_data/run2/Plate34_S12_L001_R2_001.fastq.gz	TCCTCTAC	ACTGCATA	40	40
 Plate21_12_G	fastq	../../../Raw_data/run2/Plate34_S12_L001_R1_001.fastq.gz	../../../Raw_data/run2/Plate34_S12_L001_R2_001.fastq.gz	TCCTCTAC	AAGGAGTA	40	40
 Plate21_12_H	fastq	../../../Raw_data/run2/Plate34_S12_L001_R1_001.fastq.gz	../../../Raw_data/run2/Plate34_S12_L001_R2_001.fastq.gz	TCCTCTAC	CTAAGCCT	40	40
-Plate21_5_H	fastq	../../../Raw_data/run2/Plate34_S12_L001_R1_001.fastq.gz	../../../Raw_data/run2/Plate34_S12_L001_R2_001.fastq.gz	AGGAGTCC	CTAAGCCT	40	40
+Plate21_6_H	fastq	../../../Raw_data/run2/Plate34_S12_L001_R1_001.fastq.gz	../../../Raw_data/run2/Plate34_S12_L001_R2_001.fastq.gz	CATGCCTA	CTAAGCCT	40	40
