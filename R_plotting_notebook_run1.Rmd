@@ -81,23 +81,6 @@ neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(c
 
 ```{r}
 ### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
-grob.all.clusters <- ggplotGrob(all.clusters)
-grob.neg.clusters <- ggplotGrob(neg.clusters)
-g.clusters <- rbind(grob.all.clusters , grob.neg.clusters , size="first")
-g.clusters$widths <- unit.pmax(grob.all.clusters$widths, grob.neg.clusters$widths)
-grid.newpage()
-
-### Write the grobbed ggplots to an svg
-svg(file="diagrams/S1_run1.svg",12,8)
-grid.draw(g.clusters)
-dev.off()
-
-### replot the above plot here for convenience
-grid.draw(g.clusters)
-```
-
-```{r}
-### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
 grob.all.reads <- ggplotGrob(all.reads)
 grob.neg.reads <- ggplotGrob(neg.reads)
 g.reads <- rbind(grob.all.reads , grob.neg.reads , size="first")
@@ -105,13 +88,32 @@ g.reads$widths <- unit.pmax(grob.all.reads$widths, grob.neg.reads$widths)
 grid.newpage()
 
 ### Write the grobbed ggplots to an svg
-svg(file="diagrams/S2_run1.svg",12,8)
+svg(file="diagrams/S1_run1.svg",12,8)
 grid.draw(g.reads)
 dev.off()
 
 ### replot the above plot here for convenience
 grid.draw(g.reads)
 ```
+
+```{r}
+### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
+grob.all.clusters <- ggplotGrob(all.clusters)
+grob.neg.clusters <- ggplotGrob(neg.clusters)
+g.clusters <- rbind(grob.all.clusters , grob.neg.clusters , size="first")
+g.clusters$widths <- unit.pmax(grob.all.clusters$widths, grob.neg.clusters$widths)
+grid.newpage()
+
+### Write the grobbed ggplots to an svg
+svg(file="diagrams/S2_run1.svg",12,8)
+grid.draw(g.clusters)
+dev.off()
+
+### replot the above plot here for convenience
+grid.draw(g.clusters)
+```
+
+
 
 ###Conclusions
 Looking at the plot for per well read depth for all samples suggests that a minimum cluster size between 46 and 61 reads results in the removal of rare sequences. It is harder to see a pattern in clusters retained as the y axis is heavily skewed but the number of clusters retained with a minimum read depth of one. Similarly we can see from the clusters and retained reads in the negatives, it is clear that removing any clusters smaller than 41 reads effectively excludes low level background contamination. These values suggest that a minimum cluster size of about 50 reads will be sufficient to remove background noise in our dataset.
@@ -176,7 +178,7 @@ all.samples<-ggplot(aes(y = value, x = plate, fill = variable), data = final.rea
   labs(y = "Reads per PCR well", x="PCR plate") +
   scale_fill_discrete(name="Trim level", 
                       breaks=c("total", "trimmed.total", "queries"), 
-                      labels=c("Raw reads", "Trimmed reads", "Reads in clusters")) +
+                      labels=c("Raw reads", "Trimmed reads", "Paired reads in clusters")) +
   scale_x_discrete(expand = c(0, 0)) +
    scale_y_continuous(expand = c(0, 0), limits=c(0,120000)) +
   ### rotate the x-axis labels and resize the text for the svg
@@ -218,7 +220,7 @@ samples.only<-ggplot(aes(y = value, x = plate, fill = variable), data = subset(f
   labs(y = "Reads per PCR well", x="PCR plate") +
   scale_fill_discrete(name="Trim level", 
                       breaks=c("total", "trimmed.total", "queries"), 
-                      labels=c("Raw reads", "Trimmed reads", "Reads in clusters")) +
+                      labels=c("Raw reads", "Trimmed reads", "Paired reads in clusters")) +
   scale_x_discrete(expand = c(0, 0)) +
    scale_y_continuous(expand = c(0, 0), limits=c(0,120000)) +
   ### rotate the x-axis labels and resize the text for the svg
@@ -268,7 +270,7 @@ sample.types<-ggplot(aes(y = value, x = type, fill = variable), data = final.rea
   labs(y = "Reads per PCR well", x="Sample type") +
   scale_fill_discrete(name="Trim level", 
                       breaks=c("total", "trimmed.total", "queries"), 
-                      labels=c("Raw reads", "Trimmed reads", "Reads in clusters")) +
+                      labels=c("Raw reads", "Trimmed reads", "Paired reads in clusters")) +
   scale_x_discrete(expand = c(0, 0)) +
    scale_y_continuous(expand = c(0, 0), limits=c(0,120000)) +
   ### rotate the x-axis labels and resize the text for the svg
