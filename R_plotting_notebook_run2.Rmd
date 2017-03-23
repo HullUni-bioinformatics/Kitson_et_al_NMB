@@ -84,8 +84,8 @@ neg.reads<-ggplot(data = subset(read.stats, type=="Negative"), aes(x=as.factor(c
 ### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
 grob.all.reads <- ggplotGrob(all.reads)
 grob.neg.reads <- ggplotGrob(neg.reads)
-g.reads <- rbind(grob.all.reads , grob.neg.reads , size="first")
-g.reads$widths <- unit.pmax(grob.all.reads$widths, grob.neg.reads$widths)
+g.reads <- rbind(grob.neg.reads, grob.all.reads, size="first")
+g.reads$widths <- unit.pmax(grob.neg.reads$widths, grob.all.reads$widths)
 grid.newpage()
 
 ### Write the grobbed ggplots to an svg
@@ -101,8 +101,8 @@ grid.draw(g.reads)
 ### convert ggplots to grobs for use in gtable so that the y axes are correctly alinged
 grob.all.clusters <- ggplotGrob(all.clusters)
 grob.neg.clusters <- ggplotGrob(neg.clusters)
-g.clusters <- rbind(grob.all.clusters , grob.neg.clusters , size="first")
-g.clusters$widths <- unit.pmax(grob.all.clusters$widths, grob.neg.clusters$widths)
+g.clusters <- rbind(grob.neg.clusters, grob.all.clusters , size="first")
+g.clusters$widths <- unit.pmax(grob.neg.clusters$widths, grob.all.clusters$widths)
 grid.newpage()
 
 ### Write the grobbed ggplots to an svg
