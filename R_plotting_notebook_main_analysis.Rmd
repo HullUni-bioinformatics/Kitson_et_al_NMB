@@ -6,7 +6,7 @@ output: html_notebook
 #This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Kitson *et al.* (2017)
 
 #Part 1: Minimum cluster depth analysis
-We need to see how the number of clusters retained and read depth per well changes with different minimum cluster sizes. We want to end up in a situation where we are retaining only the most common unique sequences as these are likely to be the real biological systems. We will ideally also avoid clustering with thresholds lower than 100% as this can pull in rare sequencing errors and result in a centroid that is not in fact a genuine biological sequence. We have already iterated across minimum cluster sizes in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) so now we will use this data to help us choose a minimum cluster size.
+We need to see how the number of clusters retained and read depth per well changes with different minimum cluster sizes. We want to end up in a situation where we are retaining only the most common unique sequences as these are likely to be the real biological systems. We will ideally also avoid clustering with thresholds lower than 100% as this can pull in rare sequencing errors and result in a centroid that is not in fact a genuine biological sequence. We have already iterated across minimum cluster sizes in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/Jupyter_notebook/OPM_NMB_main_analysis.ipynb) so now we will use this data to help us choose a minimum cluster size.
 
 ###First of all read in all the libraries we'll need to process the data
 ```{r}
@@ -140,10 +140,10 @@ null.reads
 
 
 ###Conclusions
-Looking at the plots for per well read  and cluster depths for all samples suggests that a minimum cluster size between 46 and 61 reads results in the removal of rare sequences. Similarly we can see from the clusters and retained reads in the negatives, it is clear that removing any clusters smaller than 41 reads effectively excludes low level background contamination. Finally the mistagging analysis suggestes that aminimum read depth of >66 reads is sufficient to remove background contamination from mistagging. These values suggest that a minimum cluster size of about 70 reads will be sufficient to remove background noise in our dataset.
+Looking at the plots for per well read  and cluster depths for all samples suggests that a minimum cluster size between 46 and 61 reads results in the removal of rare sequences. Similarly we can see from the clusters and retained reads in the negatives, it is clear that removing any clusters smaller than 41 reads effectively excludes low level background contamination. Finally the mistagging analysis suggestes that aminimum read depth of >66 reads is sufficient to remove background contamination from mistagging. These values suggest that a minimum cluster size of about 67 reads will be sufficient to remove background noise in our dataset.
 
 #Part 2: Main data analysis
-In part one we decided on an a set of minimum cluster sizes for our final analysis based on three possible selection criteria. We then used these values in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) to run a final analysis for each minimum cluster size. Now we need to examine this output, check that negatives are clean and examine the contents of each well.
+In part one we decided on an a set of minimum cluster sizes for our final analysis based on three possible selection criteria. We then used these values in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/Jupyter_notebook/OPM_NMB_main_analysis.ipynb) to run a final analysis for each minimum cluster size. Now we need to examine this output, check that negatives are clean and examine the contents of each well.
 
 ###Calculating percentage parasitism for each coverage threshold
 ```{r}

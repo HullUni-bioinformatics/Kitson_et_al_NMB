@@ -2,7 +2,8 @@
 
 In order to make our analyses fully reproducable we provide:
 - [Jupyter notebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/Jupyter_notebook) for processing raw read data into taxonomic assignments and exploring analysis parameters.
-- [Rnotebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/R_plotting_notebook_run2.Rmd) for taking taxonomic assignment and read depth data from the Jupyter notebooks and plotting figures for the manuscript.
+- [Rnotebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/R_plotting_notebook_main_analysis.Rmd) for taking taxonomic assignment and read depth data from the Jupyter notebooks and plotting figures for the main manuscript.
+[Rnotebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/R_plotting_notebook_appendix1.Rmd) for taking taxonomic assignment and read depth data from the Jupyter notebooks and plotting figures for Supplementary material appendix one.
 - [data](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/data), e.g. metadata for annotation of plots and scripts for dowloading raw sequencing data.
 - [raw diagrams](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/diagrams) as output by the R note books ready for annotation in Inkscape.
 - [Supplementary material as described in the manuscript](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/supplementary_material)

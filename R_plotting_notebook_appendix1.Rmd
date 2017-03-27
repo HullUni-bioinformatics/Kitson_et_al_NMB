@@ -6,7 +6,7 @@ output: html_notebook
 #This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Supplemtary material appendix one of Kitson *et al.* (2017)
 
 #Part 1: Minimum cluster depth analysis
-We need to see how the number of clusters retained and read depth per well changes with different minimum cluster sizes. We want to end up in a situation where we are retaining only the most common unique sequences as these are likely to be the real biological systems. We will ideally also avoid clustering with thresholds lower than 100% as this can pull in rare sequencing errors and result in a centroid that is not in fact a genuine biological sequence. We have already iterated across minimum cluster sizes in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) so now we will use this data to help us choose a minimum cluster size.
+We need to see how the number of clusters retained and read depth per well changes with different minimum cluster sizes. We want to end up in a situation where we are retaining only the most common unique sequences as these are likely to be the real biological systems. We will ideally also avoid clustering with thresholds lower than 100% as this can pull in rare sequencing errors and result in a centroid that is not in fact a genuine biological sequence. We have already iterated across minimum cluster sizes in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/Jupyter_notebook/OPM_NMB_appendix1.ipynb) so now we will use this data to help us choose a minimum cluster size.
 
 ###First of all read in all the libraries we'll need to process the data
 ```{r}
@@ -119,7 +119,7 @@ grid.draw(g.clusters)
 We can see from the clusters and retained reads in the negatives, it is clear that no minimum cluster coverage effectively excludes background contamination as there is significant overlap between read depth in the negative and sampes wells. For reference we will use a minimum cluster coverage of 50 reads but accept that there will be contamnation issues.
 
 #Part 2: Main data analysis
-In part one we decided on an appropriate minimum cluster size for our final analysis we then used this value in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) to run a final analysis. Now we need to examine this output, check that negatives are clean and examine the contents of each well.
+In part one we decided on an appropriate minimum cluster size for our final analysis we then used this value in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/Jupyter_notebook/OPM_NMB_appendix1.ipynb) to run a final analysis. Now we need to examine this output, check that negatives are clean and examine the contents of each well.
 
 ###Analysis of trimming process
 First of all we need to read in the read statistics and metadata then process the data files into annoted forms suitable for plotting.
