@@ -1,2 +1,3 @@
-#Jupyter notebooks README
+# Jupyter notebooks README
+
 There are two note books presented. [OPM_NMB_main_analysis.ipynb](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/Jupyter_notebook/OPM_NMB_main_analysis.ipynb) contains all the commands required to replicated the analysis used in the main manuscript while [OPM_NMB_appendix1.ipynb](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/Jupyter_notebook/OPM_NMB_appendix1.ipynb) contains all the commands required to replicate the analysis presented in Supplementary material appendix one.
