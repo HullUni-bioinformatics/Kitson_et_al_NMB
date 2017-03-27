@@ -3,7 +3,7 @@ title: "Summary plotting of metaBEAT output"
 output: html_notebook
 ---
 
-#This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Kitson *et al.* (2017)
+#This markdown notebook outlines step by step the processing of [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) output data to produce the figures using in Supplemtary material appendix one of Kitson *et al.* (2017)
 
 #Part 1: Minimum cluster depth analysis
 We need to see how the number of clusters retained and read depth per well changes with different minimum cluster sizes. We want to end up in a situation where we are retaining only the most common unique sequences as these are likely to be the real biological systems. We will ideally also avoid clustering with thresholds lower than 100% as this can pull in rare sequencing errors and result in a centroid that is not in fact a genuine biological sequence. We have already iterated across minimum cluster sizes in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) so now we will use this data to help us choose a minimum cluster size.
@@ -116,7 +116,7 @@ grid.draw(g.clusters)
 
 
 ###Conclusions
-Looking at the plot for per well read depth for all samples suggests that a minimum cluster size between 46 and 61 reads results in the removal of rare sequences. It is harder to see a pattern in clusters retained as the y axis is heavily skewed but the number of clusters retained with a minimum read depth of one. Similarly we can see from the clusters and retained reads in the negatives, it is clear that removing any clusters smaller than 41 reads effectively excludes low level background contamination. These values suggest that a minimum cluster size of about 50 reads will be sufficient to remove background noise in our dataset.
+We can see from the clusters and retained reads in the negatives, it is clear that no minimum cluster coverage effectively excludes background contamination as there is significant overlap between read depth in the negative and sampes wells. For reference we will use a minimum cluster coverage of 50 reads but accept that there will be contamnation issues.
 
 #Part 2: Main data analysis
 In part one we decided on an appropriate minimum cluster size for our final analysis we then used this value in the [Jupyter notebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/notebook/OPM_NMB_conservative.ipynb) to run a final analysis. Now we need to examine this output, check that negatives are clean and examine the contents of each well.
