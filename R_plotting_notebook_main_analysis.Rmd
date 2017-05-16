@@ -485,8 +485,8 @@ well.composition<-ggplot(data=my.assignments.melt, aes(x=Order, y=Reads, fill=Sp
   ### add a sensible y axis label
   labs(y = "% of reads per well", x="PCR wells") +
   ### rotate the x-axis labels and resize the text for the svg
-  theme(#axis.text.x = element_blank(),
-        axis.text.x = element_text(size = rel(0.3), colour = "black", angle=90),
+  theme(axis.text.x = element_blank(),
+        #axis.text.x = element_text(size = rel(0.3), colour = "black", angle=90),
         axis.ticks.x=element_blank(),
         axis.text.y = element_text(size = rel(1.1), colour="black"),
         axis.title.y = element_text(size = rel(1), vjust=2),
