@@ -16,4 +16,4 @@ Rmarkdown notebooks should be executed in the root of the cloned repository whil
 
 __A previous version of this repository (version 1.2) is archived: [![DOI](https://zenodo.org/badge/19905/HullUni-bioinformatics/Kitson_et_al_NMB.svg)](https://zenodo.org/badge/latestdoi/19905/HullUni-bioinformatics/Kitson_et_al_NMB)__
 
-Repository version 1.2 contains scripts and supplementary data for [Kitson et al. - Nested metabarcoding manuscript](http://biorxiv.org/content/early/2015/12/23/035071). This earlier run now forms the basis of Supplementary meterial appendix one where we outline our first attepth to employ nested metabarcoding.
+Repository version 1.2 contains scripts and supplementary data for [Kitson et al. - Nested metabarcoding manuscript](http://biorxiv.org/content/early/2015/12/23/035071). This earlier run now forms the basis of Supplementary material appendix one where we outline our first attempt to employ nested metabarcoding.
