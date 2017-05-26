@@ -43,9 +43,9 @@
      inkscape:window-height="1056"
      id="namedview8492"
      showgrid="false"
-     inkscape:zoom="2.8284271"
-     inkscape:cx="847.37742"
-     inkscape:cy="411.41885"
+     inkscape:zoom="0.99999999"
+     inkscape:cx="578.63229"
+     inkscape:cy="465.23476"
      inkscape:window-x="51"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -21308,12 +21308,12 @@
   </g>
   <path
      style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.77051783;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4.62310696, 0.77051782;stroke-dashoffset:0;stroke-opacity:1"
-     d="m 544.57178,264.78437 0,92"
+     d="m 596.33194,264.78437 0,92"
      id="path10097"
      inkscape:connector-curvature="0" />
   <path
      style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.77051783;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.0820713, 0.77051782;stroke-dashoffset:0;stroke-opacity:1"
-     d="m 721.52862,264.78437 0,92"
+     d="m 720.66548,264.78437 0,92"
      id="path10097-1"
      inkscape:connector-curvature="0" />
   <path
@@ -21378,15 +21378,15 @@
   <text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:19.85041618px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-     x="206.39391"
-     y="670.5553"
+     x="224.38873"
+     y="688.55011"
      id="text7339"
      sodipodi:linespacing="125%"
      transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,0,0)"><tspan
        sodipodi:role="line"
        id="tspan7341"
-       x="206.39391"
-       y="670.5553"
+       x="224.38873"
+       y="688.55011"
        style="font-size:9.92520809px">PCR fails</tspan></text>
   <path
      style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.61129677;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -21561,4 +21561,38 @@
        d="m 565.44828,388.64961 10.3356,-17.84288"
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.79373741px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1" />
   </g>
+  <path
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.77051783;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4.62310696, 0.77051782;stroke-dashoffset:0;stroke-opacity:1"
+     d="m 545.34229,264.78437 0,92"
+     id="path10097-4"
+     inkscape:connector-curvature="0" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:19.85041618px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="183.97957"
+     y="626.08051"
+     id="text7339-9"
+     sodipodi:linespacing="125%"
+     transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,0,0)"><tspan
+       sodipodi:role="line"
+       id="tspan7341-5"
+       x="183.97957"
+       y="626.08051"
+       style="font-size:9.92520809px;text-align:center;text-anchor:middle">Sequencing</tspan><tspan
+       sodipodi:role="line"
+       x="183.97957"
+       y="638.487"
+       style="font-size:9.92520809px;text-align:center;text-anchor:middle"
+       id="tspan8981">fails</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:11.50156403px;line-height:125%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="140.64806"
+     y="356.76364"
+     id="text8951-3"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan8953-7"
+       x="140.64806"
+       y="356.76364">*</tspan></text>
 </svg>
