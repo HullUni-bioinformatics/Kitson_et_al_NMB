@@ -517,7 +517,7 @@ hist<- ggplot(hit.hist, aes(factor(reorder(OTUs, -OTUs)))) +
         axis.line = element_blank(),
         plot.margin=unit(c(0.1, 0.1, 1, 1), "lines"))
 
-svg(file="diagrams/Figure8_run2_samples.svg", width=12, height=8)
+svg(file="diagrams/Figure8_run2.svg", width=12, height=8)
 grid.arrange(well.composition, hist, heights=c(3/4, 1/4), ncol=1)
 dev.off()
 
