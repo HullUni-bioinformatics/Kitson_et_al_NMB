@@ -1,6 +1,6 @@
 # Kitson_et_al_NMB (version 1.3)
 
-__ This version of the repository is archived: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1065374.svg)](https://doi.org/10.5281/zenodo.1065374)__
+__This version of the repository is archived: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1065374.svg)](https://doi.org/10.5281/zenodo.1065374)__
 
 In order to make our analyses fully reproducable we provide:
 - [Jupyter notebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/Jupyter_notebook) for processing raw read data into taxonomic assignments and exploring analysis parameters.
