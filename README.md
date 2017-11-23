@@ -1,5 +1,7 @@
 # Kitson_et_al_NMB (version 1.3)
 
+__ This version of the repository is archived: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1065374.svg)](https://doi.org/10.5281/zenodo.1065374)__
+
 In order to make our analyses fully reproducable we provide:
 - [Jupyter notebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/Jupyter_notebook) for processing raw read data into taxonomic assignments and exploring analysis parameters.
 - [Rnotebook](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/blob/master/R_plotting_notebook_main_analysis.Rmd) for taking taxonomic assignment and read depth data from the Jupyter notebooks and plotting figures for the main manuscript.
@@ -14,6 +16,6 @@ Rmarkdown notebooks should be executed in the root of the cloned repository whil
 
 ***********************************************************************************************************
 
-__A previous version of this repository (version 1.2) is archived: [![DOI](https://zenodo.org/badge/19905/HullUni-bioinformatics/Kitson_et_al_NMB.svg)](https://zenodo.org/badge/latestdoi/19905/HullUni-bioinformatics/Kitson_et_al_NMB)__
+__A previous version of this repository (version 1.2) is archived: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.44522.svg)](https://doi.org/10.5281/zenodo.44522)__
 
 Repository version 1.2 contains scripts and supplementary data for [Kitson et al. - Nested metabarcoding manuscript](http://biorxiv.org/content/early/2015/12/23/035071). This earlier run now forms the basis of Supplementary material appendix one where we outline our first attempt to employ nested metabarcoding.
