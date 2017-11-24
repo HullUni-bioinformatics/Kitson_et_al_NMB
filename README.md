@@ -1,13 +1,12 @@
 # Detecting host-parasitoid interactions in an invasive Lepidopteran using nested tagging DNA-metabarcoding (version 1.4)
 
-James JN Kitson<sup>1,5</sup>, Christoph Hahn^1,2^, Richard J Sands^3,4^, Nigel A Straw^3^, Darren M Evans^5^, David H Lunt^1^
+James JN Kitson<sup>1,5</sup>, Christoph Hahn<sup>1,2</sup>, Richard J Sands<sup>3,4</sup>, Nigel A Straw<sup>3</sup>, Darren M Evans<sup>5</sup>, David H Lunt<sup>1</sup>
 1. Evolutionary and Environmental Genomics Group, School of Environmental Sciences, University of Hull, Hull, UK
 2. Institute of Zoology, Karl-Franzens-Universität, Graz, Austria.
 3. Centre for Ecosystems, Society and Biosecurity, Forest Research, Alice Holt Lodge, Farnham, Surrey, UK
 4. Centre for Biological Sciences, The University of Southampton, Highfield Campus, Southampton, UK.
 5. School of Natural and Environmental Sciences, Newcastle University, Newcastle upon Tyne, UK.
-
-Horizontal rule:
+***
 
 This reporitory contains code and 
 
@@ -23,7 +22,7 @@ Rmarkdown notebooks should be executed in the root of the cloned repository whil
 
 [metaBEAT](https://github.com/HullUni-bioinformatics/metaBEAT) (v0.97.7) was run in a [docker](https://hub.docker.com/r/chrishah/metabeat/) container. See the [metaBEAT github repository](https://github.com/HullUni-bioinformatics/metaBEAT) for installation and usage instructions.
 
-***********************************************************************************************************
+***
 
 __A previous version of this repository (version 1.2) is archived: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.44522.svg)](https://doi.org/10.5281/zenodo.44522)__
 
