@@ -1,6 +1,14 @@
-# Kitson_et_al_NMB (version 1.3)
+# Detecting host-parasitoid interactions in an invasive Lepidopteran using nested tagging DNA-metabarcoding (version 1.4)
 
-__This version of the repository is archived: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1065374.svg)](https://doi.org/10.5281/zenodo.1065374)__
+James JN Kitson^1,5^, Christoph Hahn^1,2^, Richard J Sands^3,4^, Nigel A Straw^3^, Darren M Evans^5^, David H Lunt^1^
+1. Evolutionary and Environmental Genomics Group, School of Environmental Sciences, University of Hull, Hull, UK
+2. Institute of Zoology, Karl-Franzens-Universität, Graz, Austria.
+3. Centre for Ecosystems, Society and Biosecurity, Forest Research, Alice Holt Lodge, Farnham, Surrey, UK
+4. Centre for Biological Sciences, The University of Southampton, Highfield Campus, Southampton, UK.
+5. School of Natural and Environmental Sciences, Newcastle University, Newcastle upon Tyne, UK.
+Horizontal rule:
+
+This reporitory contains code and 
 
 In order to make our analyses fully reproducable we provide:
 - [Jupyter notebooks](https://github.com/HullUni-bioinformatics/Kitson_et_al_NMB/tree/master/Jupyter_notebook) for processing raw read data into taxonomic assignments and exploring analysis parameters.
