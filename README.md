@@ -1,6 +1,6 @@
 # Detecting host-parasitoid interactions in an invasive Lepidopteran using nested tagging DNA-metabarcoding (version 1.4)
 
-James JN Kitson ^1,5^, Christoph Hahn^1,2^, Richard J Sands^3,4^, Nigel A Straw^3^, Darren M Evans^5^, David H Lunt^1^
+James JN Kitson<sup>1,5</sup>, Christoph Hahn^1,2^, Richard J Sands^3,4^, Nigel A Straw^3^, Darren M Evans^5^, David H Lunt^1^
 1. Evolutionary and Environmental Genomics Group, School of Environmental Sciences, University of Hull, Hull, UK
 2. Institute of Zoology, Karl-Franzens-Universität, Graz, Austria.
 3. Centre for Ecosystems, Society and Biosecurity, Forest Research, Alice Holt Lodge, Farnham, Surrey, UK
