@@ -8,7 +8,7 @@ James JN Kitson<sup>1,5</sup>, Christoph Hahn<sup>1,2</sup>, Richard J Sands<sup
 5. School of Natural and Environmental Sciences, Newcastle University, Newcastle upon Tyne, UK.
 ***
 
-This repository is associated with the above manuscript submitted to Molecular Ecology Resources. 
+This repository is associated with the above manuscript accepted by Molecular Ecology (DOI: 10.1111/mec.14518)
 
 __The submitted version of this archive is archived: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1066005.svg)](https://doi.org/10.5281/zenodo.1066005)__
 
